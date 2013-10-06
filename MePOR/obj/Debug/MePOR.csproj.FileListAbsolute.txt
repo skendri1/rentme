@@ -1,0 +1,10 @@
+C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\bin\Debug\MePOR.exe.config
+C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\bin\Debug\MePOR.exe
+C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\bin\Debug\MePOR.pdb
+C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\obj\Debug\MePOR.csprojResolveAssemblyReference.cache
+C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\obj\Debug\MePOR.Login.resources
+C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\obj\Debug\MePOR.Properties.Resources.resources
+C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\obj\Debug\MePOR.csproj.GenerateResource.Cache
+C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\obj\Debug\MePOR.exe
+C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\obj\Debug\MePOR.pdb
+C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\obj\Debug\MePOR.MePOR.resources
