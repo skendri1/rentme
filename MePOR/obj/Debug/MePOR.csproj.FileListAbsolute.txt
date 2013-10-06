@@ -8,3 +8,4 @@ C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\obj\Debug\MePOR.csproj.Ge
 C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\obj\Debug\MePOR.exe
 C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\obj\Debug\MePOR.pdb
 C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\obj\Debug\MePOR.MePOR.resources
+C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\obj\Debug\MePOR.View.Invalid.resources
