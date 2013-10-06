@@ -12,6 +12,7 @@ namespace MePOR
 
         private const string EmployeeUsername = "employee";
         private const string AdminUsername = "admin";
+        private const string DefaultPassword = "password";
 
         private Dictionary<string, string> userPasswords;
 
@@ -29,9 +30,8 @@ namespace MePOR
             if(this.userPasswords.ContainsKey(this._username))
             {
                 string usernamesCorrectPassword;
-                this.userPasswords.TryGetValue(this._username, out usernamesCorrectPassword);
                 
-                CheckPassword(usernamesCorrectPassword);
+                CheckPassword(this.userPasswords[this._username]);
             }
             else
             {
@@ -44,7 +44,7 @@ namespace MePOR
         {
             if (usernamesCorrectPassword != null && usernamesCorrectPassword.Equals(this._password))
             {
-                MePOR meporApplication = new MePOR();
+                MePOR meporApplication = new MePOR(GetUserType());
                 meporApplication.ShowDialog(this);
                 meporApplication.Dispose();
             }
@@ -52,6 +52,19 @@ namespace MePOR
             {
                 ShowInvalidDialog();
             }
+        }
+
+        private UserType GetUserType()
+        {
+            if(this._username.Equals(EmployeeUsername))
+            {
+                return UserType.Employee;
+            }
+            if(this._username.Equals(AdminUsername))
+            {
+                return UserType.Administrator;
+            }
+            return UserType.Employee;
         }
 
         private void ShowInvalidDialog()
@@ -63,7 +76,8 @@ namespace MePOR
 
         private void LoadUsers()
         {
-            this.userPasswords = new Dictionary<string, string> { { EmployeeUsername, _password }, { AdminUsername, _password } };
+            this.userPasswords = new Dictionary<string, string>
+                                     {{EmployeeUsername, DefaultPassword}, {AdminUsername, DefaultPassword}};
         }
     }
 }
