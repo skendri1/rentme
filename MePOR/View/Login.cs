@@ -19,6 +19,7 @@ namespace MePOR
         public Login()
         {
             InitializeComponent();
+            this.AcceptButton = this.loginButton;
             LoadUsers();
         }
 
