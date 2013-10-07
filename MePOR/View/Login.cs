@@ -14,7 +14,7 @@ namespace MePOR
         private const string AdminUsername = "admin";
         private const string DefaultPassword = "password";
 
-        private Dictionary<string, string> userPasswords;
+        private Dictionary<string, string> _userPasswords;
 
         public Login()
         {
@@ -28,11 +28,11 @@ namespace MePOR
             this._username = this.usernameTextbox.Text;
             this._password = this.passwordTextbox.Text;
 
-            if(this.userPasswords.ContainsKey(this._username))
+            if(this._userPasswords.ContainsKey(this._username))
             {
                 string usernamesCorrectPassword;
                 
-                CheckPassword(this.userPasswords[this._username]);
+                CheckPassword(this._userPasswords[this._username]);
             }
             else
             {
@@ -77,7 +77,7 @@ namespace MePOR
 
         private void LoadUsers()
         {
-            this.userPasswords = new Dictionary<string, string>
+            this._userPasswords = new Dictionary<string, string>
                                      {{EmployeeUsername, DefaultPassword}, {AdminUsername, DefaultPassword}};
         }
     }

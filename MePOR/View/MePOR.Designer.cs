@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.userLabel = new System.Windows.Forms.Label();
+            this.registerBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // userLabel
@@ -41,11 +42,22 @@
             this.userLabel.TabIndex = 0;
             this.userLabel.Text = "Employee System";
             // 
+            // registerBtn
+            // 
+            this.registerBtn.Location = new System.Drawing.Point(13, 66);
+            this.registerBtn.Name = "registerBtn";
+            this.registerBtn.Size = new System.Drawing.Size(109, 61);
+            this.registerBtn.TabIndex = 2;
+            this.registerBtn.Text = "Register";
+            this.registerBtn.UseVisualStyleBackColor = true;
+            this.registerBtn.Click += new System.EventHandler(this.registerBtn_Click);
+            // 
             // MePOR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(436, 344);
+            this.Controls.Add(this.registerBtn);
             this.Controls.Add(this.userLabel);
             this.Name = "MePOR";
             this.Text = "MePOR";
@@ -57,5 +69,6 @@
         #endregion
 
         private System.Windows.Forms.Label userLabel;
+        private System.Windows.Forms.Button registerBtn;
     }
 }
