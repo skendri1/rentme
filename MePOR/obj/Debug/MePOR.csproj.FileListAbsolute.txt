@@ -9,3 +9,15 @@ C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\obj\Debug\MePOR.exe
 C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\obj\Debug\MePOR.pdb
 C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\obj\Debug\MePOR.MePOR.resources
 C:\Users\Drew\Documents\Visual Studio 2012\MePOR\MePOR\obj\Debug\MePOR.View.Invalid.resources
+C:\Users\drewg_000\Desktop\rentme\MePOR\bin\Debug\MePOR.exe.config
+C:\Users\drewg_000\Desktop\rentme\MePOR\obj\Debug\MePOR.exe
+C:\Users\drewg_000\Desktop\rentme\MePOR\obj\Debug\MePOR.pdb
+C:\Users\drewg_000\Desktop\rentme\MePOR\obj\Debug\MePOR.csprojResolveAssemblyReference.cache
+C:\Users\drewg_000\Desktop\rentme\MePOR\obj\Debug\MePOR.View.Invalid.resources
+C:\Users\drewg_000\Desktop\rentme\MePOR\obj\Debug\MePOR.Login.resources
+C:\Users\drewg_000\Desktop\rentme\MePOR\obj\Debug\MePOR.MePOR.resources
+C:\Users\drewg_000\Desktop\rentme\MePOR\obj\Debug\MePOR.Properties.Resources.resources
+C:\Users\drewg_000\Desktop\rentme\MePOR\obj\Debug\MePOR.csproj.GenerateResource.Cache
+C:\Users\drewg_000\Desktop\rentme\MePOR\bin\Debug\MePOR.exe
+C:\Users\drewg_000\Desktop\rentme\MePOR\bin\Debug\MePOR.pdb
+C:\Users\drewg_000\Desktop\rentme\MePOR\obj\Debug\MePOR.View.RegistrationForm.resources
