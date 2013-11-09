@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,9 +45,13 @@ namespace MePOR
             using (var form = new RegistrationForm())
             {
                 var result = form.ShowDialog();
-                Member member = form.NewMember;
-                string memberInfo = "Name: " + member.MemberName + " Email: " + member.Email;
-                MessageBox.Show(memberInfo, "Confirmation");
+                ArrayList memberInfo = form.NewMemberInformation;
+
+                string memberInfoString ="SSN: " + memberInfo[0] + "\nFirst Name: " + memberInfo[1] + "\nMiddle Initial: " + memberInfo[2] + "\nLast Name: " + memberInfo[3] 
+                    + "\nPhone: " + memberInfo[4] + "\nStreet: " + memberInfo[5] + "\nCity: " + memberInfo[6] + "\nState: " + memberInfo[7]
+                    + "\nZip: " + memberInfo[8];
+                
+                MessageBox.Show(memberInfoString, "Confirmation");
                 
             }
         }
