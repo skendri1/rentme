@@ -21,3 +21,6 @@ C:\Users\drewg_000\Desktop\rentme\MePOR\obj\Debug\MePOR.csproj.GenerateResource.
 C:\Users\drewg_000\Desktop\rentme\MePOR\bin\Debug\MePOR.exe
 C:\Users\drewg_000\Desktop\rentme\MePOR\bin\Debug\MePOR.pdb
 C:\Users\drewg_000\Desktop\rentme\MePOR\obj\Debug\MePOR.View.RegistrationForm.resources
+C:\Users\Stephen Kendrick\Documents\UWG Fall 2013\Info Management\MePOR\MePOR\bin\Debug\MePOR.exe.config
+C:\Users\Stephen Kendrick\Documents\UWG Fall 2013\Info Management\MePOR\MePOR\obj\Debug\MePOR.exe
+C:\Users\Stephen Kendrick\Documents\UWG Fall 2013\Info Management\MePOR\MePOR\obj\Debug\MePOR.pdb
