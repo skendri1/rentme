@@ -52,6 +52,9 @@ namespace MePOR.View
             }   
 
             this.SetNewMemberInformationArrayList();
+            NewMemberRegistrationDatabaseController.InsertNewMemberIntoDatabase(this.firstNameTextBox.Text, 
+                this.middleInitialTextBox.Text, this.lastNameTextBox.Text, this.ssnTextBox.Text, this.phoneNumberTextBox.Text, 
+                this.streetTextBox.Text, this.cityTextBox.Text, this.stateTextBox.Text, this.zipCodeTextBox.Text);
             this.Close();
         }
 

@@ -16,7 +16,7 @@ namespace MePOR.Controller
         private const string US_ZIP_REGEX = @"^\d{5}$|^\d{5}-\d{4}$";
         
 
-        /// <summary>
+        /// <summary>+
         /// Validates the name so that the given name only contains letters
         /// </summary>
         /// <param name="name">The name to validate</param>

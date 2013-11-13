@@ -179,6 +179,34 @@ namespace MePOR.Model
             reader = command.ExecuteReader();
         }
 
+        /// <summary>
+        /// Executes the given nonquery string
+        /// </summary>
+        /// <param name="nonquery">The nonquery string for the database</param>
+        public void ExecuteNonQuery(string nonquery)
+        {
+            try
+            {
+                this.OpenConnection();
+
+                command = new MySqlCommand(nonquery,connection);
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                HandleSqlException(ex);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            
+        }
+
         private void OpenConnection()
         {
             connection = new MySqlConnection(connectionSettings);
