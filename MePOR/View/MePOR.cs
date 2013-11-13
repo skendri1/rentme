@@ -44,14 +44,21 @@ namespace MePOR
         {
             using (var form = new RegistrationForm())
             {
+                this.Hide();
                 var result = form.ShowDialog();
+                this.Show();
+
                 ArrayList memberInfo = form.NewMemberInformation;
 
-                string memberInfoString ="SSN: " + memberInfo[0] + "\nFirst Name: " + memberInfo[1] + "\nMiddle Initial: " + memberInfo[2] + "\nLast Name: " + memberInfo[3] 
-                    + "\nPhone: " + memberInfo[4] + "\nStreet: " + memberInfo[5] + "\nCity: " + memberInfo[6] + "\nState: " + memberInfo[7]
-                    + "\nZip: " + memberInfo[8];
+                if (memberInfo.Count != 0)
+                {
+                    string memberInfoString ="SSN: " + memberInfo[0] + "\nFirst Name: " + memberInfo[1] + "\nMiddle Initial: " + memberInfo[2] + "\nLast Name: " + memberInfo[3] 
+                        + "\nPhone: " + memberInfo[4] + "\nStreet: " + memberInfo[5] + "\nCity: " + memberInfo[6] + "\nState: " + memberInfo[7]
+                        + "\nZip: " + memberInfo[8];
                 
-                MessageBox.Show(memberInfoString, "Confirmation");
+                    MessageBox.Show(memberInfoString, "Confirmation");
+                }
+                
                 
             }
         }

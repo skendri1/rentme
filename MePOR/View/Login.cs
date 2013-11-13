@@ -46,8 +46,10 @@ namespace MePOR
             if (usernamesCorrectPassword != null && usernamesCorrectPassword.Equals(this._password))
             {
                 MePOR meporApplication = new MePOR(GetUserType());
+                this.Hide();
                 meporApplication.ShowDialog(this);
                 meporApplication.Dispose();
+                this.Show();
             }
             else
             {
