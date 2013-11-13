@@ -51,7 +51,7 @@ namespace MePOR.View
                 query = "select memberid, fname, lname, phonenumber from MEMBER where fname='" + fnameText + "'&&lname='" + lnameText + "'";
             }
 
-            string result = this.db.QueryDB(query);
+            string result = this.db.QueryDB(query,true);
             this.richTextBox.Text = result;
         }
     }

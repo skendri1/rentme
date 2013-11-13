@@ -22,7 +22,7 @@ namespace MePOR.Model
 
         }
 
-        public string QueryDB(string query)
+        public string QueryDB(string query, bool withColumnNames)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -30,7 +30,12 @@ namespace MePOR.Model
             {
                 OpenConnection();
                 ExecuteQuery(query);
-                sb.AppendLine(buildColumnNames(query));
+
+                if (withColumnNames)
+                {
+                    sb.AppendLine(buildColumnNames(query));
+                }
+                
                 sb.Append(buildRecords());
             }
             catch (MySqlException ex)
