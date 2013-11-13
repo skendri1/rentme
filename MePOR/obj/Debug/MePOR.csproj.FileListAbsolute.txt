@@ -46,3 +46,4 @@ C:\Users\Drew\Documents\Visual Studio 2012\rentme\MePOR\obj\Debug\MePOR.Properti
 C:\Users\Drew\Documents\Visual Studio 2012\rentme\MePOR\obj\Debug\MePOR.View.RegistrationForm.resources
 C:\Users\Drew\Documents\Visual Studio 2012\rentme\MePOR\obj\Debug\MePOR.csproj.GenerateResource.Cache
 C:\Users\Drew\Documents\Visual Studio 2012\rentme\MePOR\obj\Debug\MePOR.View.MemberSearch.resources
+C:\Users\Drew\Documents\Visual Studio 2012\rentme\MePOR\bin\Debug\MySql.Data.dll

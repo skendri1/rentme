@@ -36,9 +36,9 @@
             this.lnameLabel = new System.Windows.Forms.Label();
             this.orLabel = new System.Windows.Forms.Label();
             this.searchByTitle = new System.Windows.Forms.Label();
-            this.resultsListBox = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.searchButton = new System.Windows.Forms.Button();
+            this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -109,14 +109,6 @@
             this.searchByTitle.TabIndex = 11;
             this.searchByTitle.Text = "SearchBy";
             // 
-            // resultsListBox
-            // 
-            this.resultsListBox.FormattingEnabled = true;
-            this.resultsListBox.Location = new System.Drawing.Point(32, 130);
-            this.resultsListBox.Name = "resultsListBox";
-            this.resultsListBox.Size = new System.Drawing.Size(439, 199);
-            this.resultsListBox.TabIndex = 12;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lnameTextBox);
@@ -140,14 +132,24 @@
             this.searchButton.TabIndex = 14;
             this.searchButton.Text = "search";
             this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            // 
+            // richTextBox
+            // 
+            this.richTextBox.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox.Location = new System.Drawing.Point(32, 131);
+            this.richTextBox.Name = "richTextBox";
+            this.richTextBox.Size = new System.Drawing.Size(439, 199);
+            this.richTextBox.TabIndex = 15;
+            this.richTextBox.Text = "";
             // 
             // MemberSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(511, 377);
+            this.Controls.Add(this.richTextBox);
             this.Controls.Add(this.searchButton);
-            this.Controls.Add(this.resultsListBox);
             this.Controls.Add(this.searchByTitle);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -171,8 +173,8 @@
         private System.Windows.Forms.Label lnameLabel;
         private System.Windows.Forms.Label orLabel;
         private System.Windows.Forms.Label searchByTitle;
-        private System.Windows.Forms.ListBox resultsListBox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button searchButton;
+        private System.Windows.Forms.RichTextBox richTextBox;
     }
 }

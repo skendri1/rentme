@@ -55,5 +55,11 @@ namespace MePOR
                 
             }
         }
+
+        private void memberSearchButton_Click(object sender, EventArgs e)
+        {
+            var form = new MemberSearch();
+            form.ShowDialog();
+        }
     }
 }
