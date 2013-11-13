@@ -25,9 +25,32 @@ namespace MePOR.View
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            String fname = this.fnameTextBox.Text;
+            string query = "";
 
-            string query = "select memberid, fname, lname, phonenumber from MEMBER";
+            string fnameText = this.fnameTextBox.Text;
+            string lnameText = this.lnameTextBox.Text;
+            string phoneText = this.phoneTextBox.Text;
+
+            if ((!fnameText.Equals("") && !phoneTextBox.Text.Equals("")) || (!lnameText.Equals("") && !phoneTextBox.Text.Equals("")))
+            {
+                MessageBox.Show("Please search by both first and last name or by phone number only.");
+                return;
+            }
+            if ((fnameText.Equals("") && lnameText.Equals("") && phoneText.Equals("")))
+            {
+                MessageBox.Show("Please search by both first and last name or by phone number only.");
+                return;
+            }
+
+            if (!phoneText.Equals(""))
+            {
+                query = "select memberid, fname, lname, phonenumber from MEMBER where phonenumber=" + phoneText;
+            }
+            if (!fnameText.Equals("") && !lnameText.Equals(""))
+            {
+                query = "select memberid, fname, lname, phonenumber from MEMBER where fname='" + fnameText + "'&&lname='" + lnameText + "'";
+            }
+
             string result = this.db.QueryDB(query);
             this.richTextBox.Text = result;
         }

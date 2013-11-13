@@ -57,7 +57,7 @@
             // 
             this.memberSearchButton.Location = new System.Drawing.Point(33, 140);
             this.memberSearchButton.Name = "memberSearchButton";
-            this.memberSearchButton.Size = new System.Drawing.Size(109, 70);
+            this.memberSearchButton.Size = new System.Drawing.Size(109, 63);
             this.memberSearchButton.TabIndex = 3;
             this.memberSearchButton.Text = "Member Search";
             this.memberSearchButton.UseVisualStyleBackColor = true;
