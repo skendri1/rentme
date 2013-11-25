@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Invalid));
             this.welcomeText = new System.Windows.Forms.Label();
             this.retryButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -58,6 +59,7 @@
             this.ClientSize = new System.Drawing.Size(315, 124);
             this.Controls.Add(this.retryButton);
             this.Controls.Add(this.welcomeText);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Invalid";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Please Try Again";

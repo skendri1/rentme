@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MePOR));
             this.userLabel = new System.Windows.Forms.Label();
             this.registerBtn = new System.Windows.Forms.Button();
             this.memberSearchButton = new System.Windows.Forms.Button();
@@ -71,6 +72,7 @@
             this.Controls.Add(this.memberSearchButton);
             this.Controls.Add(this.registerBtn);
             this.Controls.Add(this.userLabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MePOR";
             this.Text = "MePOR";
             this.ResumeLayout(false);

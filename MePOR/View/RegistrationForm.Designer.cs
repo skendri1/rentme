@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistrationForm));
             this.registrationLabel = new System.Windows.Forms.Label();
             this.firstNameLabel = new System.Windows.Forms.Label();
             this.phoneNumberLabel = new System.Windows.Forms.Label();
@@ -40,15 +41,15 @@
             this.cityLabel = new System.Windows.Forms.Label();
             this.streetLabel = new System.Windows.Forms.Label();
             this.memberRegistrationLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.ssnTextBox = new System.Windows.Forms.TextBox();
-            this.firstNameTextBox = new System.Windows.Forms.TextBox();
-            this.middleInitialTextBox = new System.Windows.Forms.TextBox();
-            this.lastNameTextBox = new System.Windows.Forms.TextBox();
-            this.phoneNumberTextBox = new System.Windows.Forms.TextBox();
-            this.streetTextBox = new System.Windows.Forms.TextBox();
-            this.cityTextBox = new System.Windows.Forms.TextBox();
-            this.stateTextBox = new System.Windows.Forms.TextBox();
             this.zipCodeTextBox = new System.Windows.Forms.TextBox();
+            this.stateTextBox = new System.Windows.Forms.TextBox();
+            this.cityTextBox = new System.Windows.Forms.TextBox();
+            this.streetTextBox = new System.Windows.Forms.TextBox();
+            this.phoneNumberTextBox = new System.Windows.Forms.TextBox();
+            this.lastNameTextBox = new System.Windows.Forms.TextBox();
+            this.middleInitialTextBox = new System.Windows.Forms.TextBox();
+            this.firstNameTextBox = new System.Windows.Forms.TextBox();
+            this.ssnTextBox = new System.Windows.Forms.TextBox();
             this.memberRegistrationLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -202,54 +203,12 @@
             this.memberRegistrationLayoutPanel.Size = new System.Drawing.Size(660, 234);
             this.memberRegistrationLayoutPanel.TabIndex = 14;
             // 
-            // ssnTextBox
+            // zipCodeTextBox
             // 
-            this.ssnTextBox.Location = new System.Drawing.Point(155, 3);
-            this.ssnTextBox.Name = "ssnTextBox";
-            this.ssnTextBox.Size = new System.Drawing.Size(502, 20);
-            this.ssnTextBox.TabIndex = 14;
-            // 
-            // firstNameTextBox
-            // 
-            this.firstNameTextBox.Location = new System.Drawing.Point(155, 29);
-            this.firstNameTextBox.Name = "firstNameTextBox";
-            this.firstNameTextBox.Size = new System.Drawing.Size(502, 20);
-            this.firstNameTextBox.TabIndex = 15;
-            // 
-            // middleInitialTextBox
-            // 
-            this.middleInitialTextBox.Location = new System.Drawing.Point(155, 55);
-            this.middleInitialTextBox.Name = "middleInitialTextBox";
-            this.middleInitialTextBox.Size = new System.Drawing.Size(502, 20);
-            this.middleInitialTextBox.TabIndex = 16;
-            // 
-            // lastNameTextBox
-            // 
-            this.lastNameTextBox.Location = new System.Drawing.Point(155, 81);
-            this.lastNameTextBox.Name = "lastNameTextBox";
-            this.lastNameTextBox.Size = new System.Drawing.Size(502, 20);
-            this.lastNameTextBox.TabIndex = 17;
-            // 
-            // phoneNumberTextBox
-            // 
-            this.phoneNumberTextBox.Location = new System.Drawing.Point(155, 107);
-            this.phoneNumberTextBox.Name = "phoneNumberTextBox";
-            this.phoneNumberTextBox.Size = new System.Drawing.Size(502, 20);
-            this.phoneNumberTextBox.TabIndex = 18;
-            // 
-            // streetTextBox
-            // 
-            this.streetTextBox.Location = new System.Drawing.Point(155, 133);
-            this.streetTextBox.Name = "streetTextBox";
-            this.streetTextBox.Size = new System.Drawing.Size(502, 20);
-            this.streetTextBox.TabIndex = 19;
-            // 
-            // cityTextBox
-            // 
-            this.cityTextBox.Location = new System.Drawing.Point(155, 159);
-            this.cityTextBox.Name = "cityTextBox";
-            this.cityTextBox.Size = new System.Drawing.Size(502, 20);
-            this.cityTextBox.TabIndex = 20;
+            this.zipCodeTextBox.Location = new System.Drawing.Point(155, 211);
+            this.zipCodeTextBox.Name = "zipCodeTextBox";
+            this.zipCodeTextBox.Size = new System.Drawing.Size(502, 20);
+            this.zipCodeTextBox.TabIndex = 22;
             // 
             // stateTextBox
             // 
@@ -258,12 +217,54 @@
             this.stateTextBox.Size = new System.Drawing.Size(502, 20);
             this.stateTextBox.TabIndex = 21;
             // 
-            // zipCodeTextBox
+            // cityTextBox
             // 
-            this.zipCodeTextBox.Location = new System.Drawing.Point(155, 211);
-            this.zipCodeTextBox.Name = "zipCodeTextBox";
-            this.zipCodeTextBox.Size = new System.Drawing.Size(502, 20);
-            this.zipCodeTextBox.TabIndex = 22;
+            this.cityTextBox.Location = new System.Drawing.Point(155, 159);
+            this.cityTextBox.Name = "cityTextBox";
+            this.cityTextBox.Size = new System.Drawing.Size(502, 20);
+            this.cityTextBox.TabIndex = 20;
+            // 
+            // streetTextBox
+            // 
+            this.streetTextBox.Location = new System.Drawing.Point(155, 133);
+            this.streetTextBox.Name = "streetTextBox";
+            this.streetTextBox.Size = new System.Drawing.Size(502, 20);
+            this.streetTextBox.TabIndex = 19;
+            // 
+            // phoneNumberTextBox
+            // 
+            this.phoneNumberTextBox.Location = new System.Drawing.Point(155, 107);
+            this.phoneNumberTextBox.Name = "phoneNumberTextBox";
+            this.phoneNumberTextBox.Size = new System.Drawing.Size(502, 20);
+            this.phoneNumberTextBox.TabIndex = 18;
+            // 
+            // lastNameTextBox
+            // 
+            this.lastNameTextBox.Location = new System.Drawing.Point(155, 81);
+            this.lastNameTextBox.Name = "lastNameTextBox";
+            this.lastNameTextBox.Size = new System.Drawing.Size(502, 20);
+            this.lastNameTextBox.TabIndex = 17;
+            // 
+            // middleInitialTextBox
+            // 
+            this.middleInitialTextBox.Location = new System.Drawing.Point(155, 55);
+            this.middleInitialTextBox.Name = "middleInitialTextBox";
+            this.middleInitialTextBox.Size = new System.Drawing.Size(502, 20);
+            this.middleInitialTextBox.TabIndex = 16;
+            // 
+            // firstNameTextBox
+            // 
+            this.firstNameTextBox.Location = new System.Drawing.Point(155, 29);
+            this.firstNameTextBox.Name = "firstNameTextBox";
+            this.firstNameTextBox.Size = new System.Drawing.Size(502, 20);
+            this.firstNameTextBox.TabIndex = 15;
+            // 
+            // ssnTextBox
+            // 
+            this.ssnTextBox.Location = new System.Drawing.Point(155, 3);
+            this.ssnTextBox.Name = "ssnTextBox";
+            this.ssnTextBox.Size = new System.Drawing.Size(502, 20);
+            this.ssnTextBox.TabIndex = 14;
             // 
             // RegistrationForm
             // 
@@ -273,6 +274,7 @@
             this.Controls.Add(this.memberRegistrationLayoutPanel);
             this.Controls.Add(this.submitBtn);
             this.Controls.Add(this.registrationLabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RegistrationForm";
             this.Text = "RegistrationForm";
             this.memberRegistrationLayoutPanel.ResumeLayout(false);
