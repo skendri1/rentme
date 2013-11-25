@@ -47,7 +47,7 @@
   <ItemGroup>
     <Compile Include="Controller\NewMemberRegistrationDatabaseController.cs" />
     <Compile Include="Controller\NewMemberValidationController.cs" />
-    <Compile Include="Model\Database.cs" />
+    <Compile Include="Data Access\Database.cs" />
     <Compile Include="Model\Member.cs" />
     <Compile Include="View\Invalid.cs">
       <SubType>Form</SubType>
