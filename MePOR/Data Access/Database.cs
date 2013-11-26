@@ -5,15 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Collections;
+using System.Data;
 
 namespace MePOR.DataAccess
 {
     class Database
     {
-        MySqlConnection connection = null;
-        MySqlCommand command = null;
-        MySqlDataReader reader = null;
-
         string connectionSettings = "server=cs.westga.edu; port=3307; uid=cs3230f13m;" +
               "pwd=UttpzH3cY63xhfNS;database=cs3230f13m;";
 
@@ -21,132 +18,76 @@ namespace MePOR.DataAccess
         {
         }
 
-        public string QueryDB(string query, bool withColumnNames)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            try
-            {
-                OpenConnection();
-                ExecuteQuery(query);
-
-                if (withColumnNames)
-                {
-                    sb.AppendLine(buildColumnNames(query));
-                }
-
-                sb.Append(buildRecords());
-            }
-            catch (MySqlException ex)
-            {
-                HandleSqlException(ex);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                CloseConnection();
-            }
-
-            return sb.ToString();
-        }
-
-        public void PrintColumnNameTypes(string query)
-        {
-            try
-            {
-                OpenConnection();
-                PrintColumnNames(query);
-            }
-            catch (MySqlException ex)
-            {
-                HandleSqlException(ex);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                CloseConnection();
-            }
-        }
-
-        private void PrintColumnNames(string query)
-        {
-            command = new MySqlCommand(query, connection);
-            reader = command.ExecuteReader();
-            StringBuilder sb = new StringBuilder();
-
-            for (int i = 0; i < reader.FieldCount; i++)
-            {
-                string nameType = (reader.GetName(i) + " (" + reader.GetFieldType(i).ToString().Replace("System.", "") + ")");
-                Console.Write(nameType.PadRight(18, ' '));
-            }
-            Console.WriteLine("\n");
-        }
-
-        private void OpenConnection()
-        {
-            connection = new MySqlConnection(connectionSettings);
-            connection.Open();
-        }
-
-        private void CloseConnection()
-        {
-            if (reader != null)
-                reader.Close();
-            if (connection != null)
-                connection.Close();
-        }
-
-        private string buildRecords()
-        {
-            ArrayList types = new ArrayList();
-            StringBuilder sb = new StringBuilder();
-
-            for (int i = 0; i < reader.FieldCount; i++)
-            {
-                types.Add(reader.GetFieldType(i));
-            }
-
-            while (reader.Read())
-            {
-                for (int i = 0; i < reader.FieldCount; i++)
-                {
-                    sb.Append(readField((Type)types[i], i).PadRight(18, ' '));
-                }
-                sb.Append("\n");
-            }
-
-            return sb.ToString();
-        }
-
-        private string buildColumnNames(string query)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            for (int i = 0; i < reader.FieldCount; i++)
-            {
-                string nameType = (reader.GetName(i));
-                sb.Append(nameType.PadRight(18, ' '));
-            }
-            sb.Append("\n");
-
-            return sb.ToString();
-        }
-
-        private void ExecuteQuery(string query)
-        {
-            command = new MySqlCommand(query, connection);
-            reader = command.ExecuteReader();
-        }
-
-        public MySqlDataReader SearchCustomerByPhone(string phoneNumber)
+        public DataTable QueryAdministratorLogin(string username, string password)
         {
             MySqlDataReader result = null;
+            DataTable dt = new DataTable();
+            string sql = "SELECT username, password FROM ADMINISTRATOR WHERE username=@username AND password=@password";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+                cmd.Parameters.Add("@username", MySql.Data.MySqlClient.MySqlDbType.VarChar, 15);
+                cmd.Parameters.Add("@password", MySql.Data.MySqlClient.MySqlDbType.VarChar, 15);
+
+                cmd.Parameters["@username"].Value = username;
+                cmd.Parameters["@password"].Value = password;
+
+                try
+                {
+                    cmd.Connection = new MySqlConnection(connectionSettings);
+                    cmd.Connection.Open();
+                    result = cmd.ExecuteReader();
+                    dt.Load(result);
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+            }
+            return dt;
+        }
+
+        public DataTable QueryEmployeeLogin(string username, string password)
+        {
+            MySqlDataReader result = null;
+            DataTable dt = new DataTable();
+            string sql = "SELECT username, password FROM EMPLOYEE WHERE username=@username AND password=@password";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+                cmd.Parameters.Add("@username", MySql.Data.MySqlClient.MySqlDbType.VarChar, 15);
+                cmd.Parameters.Add("@password", MySql.Data.MySqlClient.MySqlDbType.VarChar, 15);
+
+                cmd.Parameters["@username"].Value = username;
+                cmd.Parameters["@password"].Value = password;
+
+                try
+                {
+                    cmd.Connection = new MySqlConnection(connectionSettings);
+                    cmd.Connection.Open();
+                    result = cmd.ExecuteReader();
+                    dt.Load(result);
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+            }
+            return dt;
+        }
+
+        public DataTable SearchCustomerByPhone(string phoneNumber)
+        {
+            MySqlDataReader result = null;
+            DataTable dt = new DataTable();
             string sql = "select memberid, fname, lname, phonenumber from MEMBER where phonenumber=@phoneNumber";
 
             using (MySqlCommand cmd = new MySqlCommand(sql))
@@ -159,6 +100,7 @@ namespace MePOR.DataAccess
                     cmd.Connection = new MySqlConnection(connectionSettings);
                     cmd.Connection.Open();
                     result = cmd.ExecuteReader();
+                    dt.Load(result);
                 }
                 catch (MySqlException ex)
                 {
@@ -169,12 +111,13 @@ namespace MePOR.DataAccess
                     cmd.Connection.Close();
                 }
             }
-            return result;
+            return dt;
         }
 
-        public MySqlDataReader SearchCustomerByName(string fname, string lname)
+        public DataTable SearchCustomerByName(string fname, string lname)
         {
             MySqlDataReader result = null;
+            DataTable dt = new DataTable();
             string sql = "select memberid, fname, lname, phonenumber from MEMBER where fname=@fname && lname=@lname";
 
             using (MySqlCommand cmd = new MySqlCommand(sql))
@@ -190,6 +133,7 @@ namespace MePOR.DataAccess
                     cmd.Connection = new MySqlConnection(connectionSettings);
                     cmd.Connection.Open();
                     result = cmd.ExecuteReader();
+                    dt.Load(result);
                 }
                 catch (MySqlException ex)
                 {
@@ -200,36 +144,7 @@ namespace MePOR.DataAccess
                     cmd.Connection.Close();
                 }
             }
-            return result;
-        }
-
-        private string readField(System.Type type, int index)
-        {
-            if (reader.IsDBNull(index))
-            {
-                return "NULL";
-            }
-            if (type == typeof(System.String))
-            {
-                return reader.GetString(index);
-            }
-            if (type == typeof(System.Int32))
-            {
-                return reader.GetInt32(index).ToString();
-            }
-            if (type == typeof(System.Double))
-            {
-                return reader.GetDouble(index).ToString();
-            }
-            if (type == typeof(System.Decimal))
-            {
-                return reader.GetDouble(index).ToString();
-            }
-            if (type == typeof(System.DateTime))
-            {
-                return reader.GetDateTime(index).ToShortDateString();
-            }
-            return "-1";
+            return dt;
         }
 
         public void InsertNewMember(string fName, string mInitial, string lName, string ssn, string phoneNumber, string street, string city, string state, string zipCode)

@@ -276,6 +276,7 @@
             this.Controls.Add(this.registrationLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RegistrationForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RegistrationForm";
             this.memberRegistrationLayoutPanel.ResumeLayout(false);
             this.memberRegistrationLayoutPanel.PerformLayout();

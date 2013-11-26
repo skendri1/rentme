@@ -74,6 +74,7 @@
             this.Controls.Add(this.userLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MePOR";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MePOR";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using MePOR.DataAccess;
 using MePOR.View;
+using MePOR.Controller;
 
 namespace MePOR
 {
@@ -10,10 +11,12 @@ namespace MePOR
     {
         private string _username;
         private string _password;
+        private DBAccessController dbControl;
 
         public Login()
         {
             InitializeComponent();
+            dbControl = new DBAccessController();
             this.AcceptButton = this.loginButton;
         }
 
@@ -23,19 +26,12 @@ namespace MePOR
             this._password = this.passwordTextbox.Text;
 
             Database db = new Database();
-            string queryEmployee = "SELECT username, password FROM EMPLOYEE WHERE username=" + "'" + this._username + "'" + "AND password=" + "'" +
-                           this._password + "'";
-            string resultsEmployee = db.QueryDB(queryEmployee, false);
 
-            string queryAdmin = "SELECT username, password FROM ADMINISTRATOR WHERE username=" + "'" + this._username + "'" + "AND password=" + "'" +
-                           this._password + "'";
-            string resultsAdmin = db.QueryDB(queryAdmin, false);
-
-            if (resultsEmployee.Length > 0)
+            if (dbControl.AuthenticateEmployee(this._username, this._password))
             {
                 this.StartMePOR(UserType.Employee);
             }
-            else if (resultsAdmin.Length > 0)
+            else if (dbControl.AuthenticateAdministrator(this._username, this._password))
             {
                 this.StartMePOR(UserType.Administrator);
             }
@@ -43,7 +39,6 @@ namespace MePOR
             {
                 ShowInvalidDialog();
             }
-
         }
 
         private void StartMePOR(UserType userType)

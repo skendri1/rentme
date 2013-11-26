@@ -1,4 +1,6 @@
-﻿using MePOR.DataAccess;
+﻿using MePOR.Controller;
+using MePOR.DataAccess;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,44 +15,43 @@ namespace MePOR.View
 {
     public partial class MemberSearch : Form
     {
-        Database db;
+        DBAccessController dbControl;
+        DataTable result;
 
         public MemberSearch()
         {
             InitializeComponent();
-            db = new Database();
+            dbControl = new DBAccessController();
+            this.AcceptButton = this.searchButton;
         }
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            string query = "";
+            string fname = this.fnameTextBox.Text;
+            string lname = this.lnameTextBox.Text;
+            string phoneNumber = this.phoneTextBox.Text;
 
-            string fnameText = this.fnameTextBox.Text;
-            string lnameText = this.lnameTextBox.Text;
-            string phoneText = this.phoneTextBox.Text;
-
-            if ((!fnameText.Equals("") && !phoneTextBox.Text.Equals("")) || (!lnameText.Equals("") && !phoneTextBox.Text.Equals("")))
+            if ((!fname.Equals("") && !phoneTextBox.Text.Equals("")) || (!lname.Equals("") && !phoneTextBox.Text.Equals("")))
             {
                 MessageBox.Show("Please search by both first and last name or by phone number only.");
                 return;
             }
-            if ((fnameText.Equals("") && lnameText.Equals("") && phoneText.Equals("")))
+            if ((fname.Equals("") && lname.Equals("") && phoneNumber.Equals("")))
             {
                 MessageBox.Show("Please search by both first and last name or by phone number only.");
                 return;
             }
 
-            if (!phoneText.Equals(""))
+            if (!phoneNumber.Equals(""))
             {
-                query = "select memberid, fname, lname, phonenumber from MEMBER where phonenumber=" + phoneText;
+                result = this.dbControl.SearchCustomerByPhone(phoneNumber);
             }
-            if (!fnameText.Equals("") && !lnameText.Equals(""))
+            if (!fname.Equals("") && !lname.Equals(""))
             {
-                query = "select memberid, fname, lname, phonenumber from MEMBER where fname='" + fnameText + "'&&lname='" + lnameText + "'";
+                result = this.dbControl.SearchCustomerByName(fname, lname);
             }
-
-            string result = this.db.QueryDB(query,true);
-            //this.richTextBox.Text = result;
+            
+            this.memberSearchGrid.DataSource = result;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
