@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using MePOR.Model;
+using MePOR.DataAccess;
 using MePOR.View;
 
 namespace MePOR

@@ -1,4 +1,4 @@
-﻿using MePOR.Model;
+﻿using MePOR.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -50,7 +50,12 @@ namespace MePOR.View
             }
 
             string result = this.db.QueryDB(query,true);
-            this.richTextBox.Text = result;
+            //this.richTextBox.Text = result;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

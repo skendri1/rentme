@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Collections;
 
-namespace MePOR.Model
+namespace MePOR.DataAccess
 {
     class Database
     {
@@ -19,7 +19,6 @@ namespace MePOR.Model
 
         public Database()
         {
-
         }
 
         public string QueryDB(string query, bool withColumnNames)
@@ -89,20 +88,10 @@ namespace MePOR.Model
             Console.WriteLine("\n");
         }
 
-        private static void HandleSqlException(MySqlException ex)
+        private void OpenConnection()
         {
-            switch (ex.Number)
-            {
-                case 0:
-                    Console.WriteLine("Cannot connect to server.  Contact administrator");
-                    break;
-                case 1045:
-                    Console.WriteLine("Invalid username/password, please try again");
-                    break;
-                default:
-                    Console.WriteLine(ex.Message + "!\nPlease try again!");
-                    break;
-            }
+            connection = new MySqlConnection(connectionSettings);
+            connection.Open();
         }
 
         private void CloseConnection()
@@ -149,6 +138,71 @@ namespace MePOR.Model
             return sb.ToString();
         }
 
+        private void ExecuteQuery(string query)
+        {
+            command = new MySqlCommand(query, connection);
+            reader = command.ExecuteReader();
+        }
+
+        public MySqlDataReader SearchCustomerByPhone(string phoneNumber)
+        {
+            MySqlDataReader result = null;
+            string sql = "select memberid, fname, lname, phonenumber from MEMBER where phonenumber=@phoneNumber";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+                cmd.Parameters.Add("@phoneNumber", MySql.Data.MySqlClient.MySqlDbType.VarChar, 10);
+                cmd.Parameters["@phoneNumber"].Value = phoneNumber;
+
+                try
+                {
+                    cmd.Connection = new MySqlConnection(connectionSettings);
+                    cmd.Connection.Open();
+                    result = cmd.ExecuteReader();
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+            }
+            return result;
+        }
+
+        public MySqlDataReader SearchCustomerByName(string fname, string lname)
+        {
+            MySqlDataReader result = null;
+            string sql = "select memberid, fname, lname, phonenumber from MEMBER where fname=@fname && lname=@lname";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+                cmd.Parameters.Add("@fname", MySql.Data.MySqlClient.MySqlDbType.VarChar, 15);
+                cmd.Parameters.Add("@lname", MySql.Data.MySqlClient.MySqlDbType.VarChar, 15);
+
+                cmd.Parameters["@fname"].Value = fname;
+                cmd.Parameters["@lname"].Value = lname;
+
+                try
+                {
+                    cmd.Connection = new MySqlConnection(connectionSettings);
+                    cmd.Connection.Open();
+                    result = cmd.ExecuteReader();
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+            }
+            return result;
+        }
+
         private string readField(System.Type type, int index)
         {
             if (reader.IsDBNull(index))
@@ -176,42 +230,6 @@ namespace MePOR.Model
                 return reader.GetDateTime(index).ToShortDateString();
             }
             return "-1";
-        }
-
-        private void ExecuteQuery(string query)
-        {
-            command = new MySqlCommand(query, connection);
-            reader = command.ExecuteReader();
-        }
-
-        /// <summary>
-        /// Executes the given nonquery string
-        /// </summary>
-        /// <param name="nonquery">The nonquery string for the database</param>
-        public void ExecuteNonQuery(string nonquery)
-        {
-            try
-            {
-                this.OpenConnection();
-
-
-
-                command = new MySqlCommand(nonquery, connection);
-                command.ExecuteNonQuery();
-            }
-            catch (MySqlException ex)
-            {
-                HandleSqlException(ex);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                CloseConnection();
-            }
-
         }
 
         public void InsertNewMember(string fName, string mInitial, string lName, string ssn, string phoneNumber, string street, string city, string state, string zipCode)
@@ -259,36 +277,20 @@ namespace MePOR.Model
             }
         }
 
-        private void OpenConnection()
+        private static void HandleSqlException(MySqlException ex)
         {
-            connection = new MySqlConnection(connectionSettings);
-            connection.Open();
+            switch (ex.Number)
+            {
+                case 0:
+                    Console.WriteLine("Cannot connect to server.  Contact administrator");
+                    break;
+                case 1045:
+                    Console.WriteLine("Invalid username/password, please try again");
+                    break;
+                default:
+                    Console.WriteLine(ex.Message + "!\nPlease try again!");
+                    break;
+            }
         }
-
-        //string sql = "SELECT UserId FROM User WHERE " +
-        //    "UserName = @UserName AND Password = @Password";
-
-        //using (SqlCommand cmd = new SqlCommand(sql))
-        //{
-        //    // Create the parameter objects as specific as possible.
-        //    cmd.Parameters.Add("@UserName", System.Data.SqlDbType.NVarChar, 50);
-        //    cmd.Parameters.Add("@Password", System.Data.SqlDbType.NVarChar, 25);
-
-        //    // Add the parameter values.  Validation should have already happened.
-        //    cmd.Parameters["@UserName"].Value = UserName;
-        //    cmd.Parameters["@Password"].Value = Password;
-        //    cmd.Connection = connnection;
-
-        //    try
-        //    {
-        //        cmd.Connection.Open();
-        //        var userId = cmd.ExecuteScalar();
-        //    }
-        //    catch (SqlException sx)
-        //    {
-        //        // Handle exceptions before moving on.
-        //    }
-        //}
-
     }
 }
