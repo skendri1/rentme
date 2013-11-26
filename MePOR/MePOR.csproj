@@ -49,7 +49,6 @@
     <Compile Include="Controller\NewMemberValidationController.cs" />
     <Compile Include="Controller\DBAccessController.cs" />
     <Compile Include="Data Access\Database.cs" />
-    <Compile Include="Model\Member.cs" />
     <Compile Include="View\Invalid.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,7 +118,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

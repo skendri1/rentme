@@ -199,9 +199,6 @@ namespace MePOR.DataAccess
                 case 0:
                     Console.WriteLine("Cannot connect to server.  Contact administrator");
                     break;
-                case 1045:
-                    Console.WriteLine("Invalid username/password, please try again");
-                    break;
                 default:
                     Console.WriteLine(ex.Message + "!\nPlease try again!");
                     break;
