@@ -13,13 +13,11 @@ namespace MePOR.View
 {
     public partial class MemberSearch : Form
     {
-        string searchResults;
         Database db;
 
         public MemberSearch()
         {
             InitializeComponent();
-            searchResults = "";
             db = new Database();
         }
 

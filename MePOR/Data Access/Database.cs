@@ -35,7 +35,7 @@ namespace MePOR.Model
                 {
                     sb.AppendLine(buildColumnNames(query));
                 }
-                
+
                 sb.Append(buildRecords());
             }
             catch (MySqlException ex)
@@ -131,7 +131,7 @@ namespace MePOR.Model
                 }
                 sb.Append("\n");
             }
-            
+
             return sb.ToString();
         }
 
@@ -194,7 +194,9 @@ namespace MePOR.Model
             {
                 this.OpenConnection();
 
-                command = new MySqlCommand(nonquery,connection);
+
+
+                command = new MySqlCommand(nonquery, connection);
                 command.ExecuteNonQuery();
             }
             catch (MySqlException ex)
@@ -209,7 +211,52 @@ namespace MePOR.Model
             {
                 CloseConnection();
             }
-            
+
+        }
+
+        public void InsertNewMember(string fName, string mInitial, string lName, string ssn, string phoneNumber, string street, string city, string state, string zipCode)
+        {
+            string sql = "INSERT INTO MEMBER (fname, minitial, lname, ssn, phonenumber, street, city, state, zip) VALUES(@fName,@mInitial,@lName,@ssn,@phoneNumber,@street,@city,@state,@zipCode)";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+                // Create the parameter objects as specific as possible.
+                cmd.Parameters.Add("@fName", MySql.Data.MySqlClient.MySqlDbType.VarChar, 15);
+                cmd.Parameters.Add("@mInitial", MySql.Data.MySqlClient.MySqlDbType.VarChar, 1);
+                cmd.Parameters.Add("@lName", MySql.Data.MySqlClient.MySqlDbType.VarChar, 15);
+                cmd.Parameters.Add("@ssn", MySql.Data.MySqlClient.MySqlDbType.VarChar, 9);
+                cmd.Parameters.Add("@phoneNumber", MySql.Data.MySqlClient.MySqlDbType.VarChar, 10);
+                cmd.Parameters.Add("@street", MySql.Data.MySqlClient.MySqlDbType.VarChar, 45);
+                cmd.Parameters.Add("@city", MySql.Data.MySqlClient.MySqlDbType.VarChar, 45);
+                cmd.Parameters.Add("@state", MySql.Data.MySqlClient.MySqlDbType.VarChar, 45);
+                cmd.Parameters.Add("@zipCode", MySql.Data.MySqlClient.MySqlDbType.VarChar, 5);
+
+                // Add the parameter values. 
+                cmd.Parameters["@fName"].Value = fName;
+                cmd.Parameters["@mInitial"].Value = mInitial;
+                cmd.Parameters["@lName"].Value = lName;
+                cmd.Parameters["@ssn"].Value = ssn;
+                cmd.Parameters["@phoneNumber"].Value = phoneNumber;
+                cmd.Parameters["@street"].Value = street;
+                cmd.Parameters["@city"].Value = city;
+                cmd.Parameters["@state"].Value = state;
+                cmd.Parameters["@zipCode"].Value = zipCode;
+
+                try
+                {
+                    cmd.Connection = new MySqlConnection(connectionSettings);
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+            }
         }
 
         private void OpenConnection()
@@ -217,6 +264,31 @@ namespace MePOR.Model
             connection = new MySqlConnection(connectionSettings);
             connection.Open();
         }
+
+        //string sql = "SELECT UserId FROM User WHERE " +
+        //    "UserName = @UserName AND Password = @Password";
+
+        //using (SqlCommand cmd = new SqlCommand(sql))
+        //{
+        //    // Create the parameter objects as specific as possible.
+        //    cmd.Parameters.Add("@UserName", System.Data.SqlDbType.NVarChar, 50);
+        //    cmd.Parameters.Add("@Password", System.Data.SqlDbType.NVarChar, 25);
+
+        //    // Add the parameter values.  Validation should have already happened.
+        //    cmd.Parameters["@UserName"].Value = UserName;
+        //    cmd.Parameters["@Password"].Value = Password;
+        //    cmd.Connection = connnection;
+
+        //    try
+        //    {
+        //        cmd.Connection.Open();
+        //        var userId = cmd.ExecuteScalar();
+        //    }
+        //    catch (SqlException sx)
+        //    {
+        //        // Handle exceptions before moving on.
+        //    }
+        //}
 
     }
 }
