@@ -57,11 +57,11 @@
             // 
             this.registrationLabel.AutoSize = true;
             this.registrationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.registrationLabel.Location = new System.Drawing.Point(156, 9);
+            this.registrationLabel.Location = new System.Drawing.Point(87, 9);
             this.registrationLabel.Name = "registrationLabel";
-            this.registrationLabel.Size = new System.Drawing.Size(381, 36);
+            this.registrationLabel.Size = new System.Drawing.Size(187, 36);
             this.registrationLabel.TabIndex = 0;
-            this.registrationLabel.Text = "New Member Registration";
+            this.registrationLabel.Text = "Registration";
             // 
             // firstNameLabel
             // 
@@ -86,9 +86,9 @@
             // submitBtn
             // 
             this.submitBtn.BackColor = System.Drawing.SystemColors.Control;
-            this.submitBtn.Location = new System.Drawing.Point(12, 329);
+            this.submitBtn.Location = new System.Drawing.Point(12, 314);
             this.submitBtn.Name = "submitBtn";
-            this.submitBtn.Size = new System.Drawing.Size(655, 23);
+            this.submitBtn.Size = new System.Drawing.Size(319, 23);
             this.submitBtn.TabIndex = 6;
             this.submitBtn.Text = "Submit";
             this.submitBtn.UseVisualStyleBackColor = false;
@@ -188,7 +188,7 @@
             this.memberRegistrationLayoutPanel.Controls.Add(this.lastNameLabel, 0, 3);
             this.memberRegistrationLayoutPanel.Controls.Add(this.phoneNumberLabel, 0, 4);
             this.memberRegistrationLayoutPanel.Controls.Add(this.ssnTextBox, 1, 0);
-            this.memberRegistrationLayoutPanel.Location = new System.Drawing.Point(12, 48);
+            this.memberRegistrationLayoutPanel.Location = new System.Drawing.Point(12, 61);
             this.memberRegistrationLayoutPanel.Name = "memberRegistrationLayoutPanel";
             this.memberRegistrationLayoutPanel.RowCount = 9;
             this.memberRegistrationLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -200,84 +200,84 @@
             this.memberRegistrationLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.memberRegistrationLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.memberRegistrationLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.memberRegistrationLayoutPanel.Size = new System.Drawing.Size(660, 234);
+            this.memberRegistrationLayoutPanel.Size = new System.Drawing.Size(577, 234);
             this.memberRegistrationLayoutPanel.TabIndex = 14;
             // 
             // zipCodeTextBox
             // 
-            this.zipCodeTextBox.Location = new System.Drawing.Point(155, 211);
+            this.zipCodeTextBox.Location = new System.Drawing.Point(136, 211);
             this.zipCodeTextBox.Name = "zipCodeTextBox";
-            this.zipCodeTextBox.Size = new System.Drawing.Size(502, 20);
+            this.zipCodeTextBox.Size = new System.Drawing.Size(183, 20);
             this.zipCodeTextBox.TabIndex = 22;
             // 
             // stateTextBox
             // 
-            this.stateTextBox.Location = new System.Drawing.Point(155, 185);
+            this.stateTextBox.Location = new System.Drawing.Point(136, 185);
             this.stateTextBox.Name = "stateTextBox";
-            this.stateTextBox.Size = new System.Drawing.Size(502, 20);
+            this.stateTextBox.Size = new System.Drawing.Size(183, 20);
             this.stateTextBox.TabIndex = 21;
             // 
             // cityTextBox
             // 
-            this.cityTextBox.Location = new System.Drawing.Point(155, 159);
+            this.cityTextBox.Location = new System.Drawing.Point(136, 159);
             this.cityTextBox.Name = "cityTextBox";
-            this.cityTextBox.Size = new System.Drawing.Size(502, 20);
+            this.cityTextBox.Size = new System.Drawing.Size(183, 20);
             this.cityTextBox.TabIndex = 20;
             // 
             // streetTextBox
             // 
-            this.streetTextBox.Location = new System.Drawing.Point(155, 133);
+            this.streetTextBox.Location = new System.Drawing.Point(136, 133);
             this.streetTextBox.Name = "streetTextBox";
-            this.streetTextBox.Size = new System.Drawing.Size(502, 20);
+            this.streetTextBox.Size = new System.Drawing.Size(183, 20);
             this.streetTextBox.TabIndex = 19;
             // 
             // phoneNumberTextBox
             // 
-            this.phoneNumberTextBox.Location = new System.Drawing.Point(155, 107);
+            this.phoneNumberTextBox.Location = new System.Drawing.Point(136, 107);
             this.phoneNumberTextBox.Name = "phoneNumberTextBox";
-            this.phoneNumberTextBox.Size = new System.Drawing.Size(502, 20);
+            this.phoneNumberTextBox.Size = new System.Drawing.Size(183, 20);
             this.phoneNumberTextBox.TabIndex = 18;
             // 
             // lastNameTextBox
             // 
-            this.lastNameTextBox.Location = new System.Drawing.Point(155, 81);
+            this.lastNameTextBox.Location = new System.Drawing.Point(136, 81);
             this.lastNameTextBox.Name = "lastNameTextBox";
-            this.lastNameTextBox.Size = new System.Drawing.Size(502, 20);
+            this.lastNameTextBox.Size = new System.Drawing.Size(183, 20);
             this.lastNameTextBox.TabIndex = 17;
             // 
             // middleInitialTextBox
             // 
-            this.middleInitialTextBox.Location = new System.Drawing.Point(155, 55);
+            this.middleInitialTextBox.Location = new System.Drawing.Point(136, 55);
             this.middleInitialTextBox.Name = "middleInitialTextBox";
-            this.middleInitialTextBox.Size = new System.Drawing.Size(502, 20);
+            this.middleInitialTextBox.Size = new System.Drawing.Size(183, 20);
             this.middleInitialTextBox.TabIndex = 16;
             // 
             // firstNameTextBox
             // 
-            this.firstNameTextBox.Location = new System.Drawing.Point(155, 29);
+            this.firstNameTextBox.Location = new System.Drawing.Point(136, 29);
             this.firstNameTextBox.Name = "firstNameTextBox";
-            this.firstNameTextBox.Size = new System.Drawing.Size(502, 20);
+            this.firstNameTextBox.Size = new System.Drawing.Size(183, 20);
             this.firstNameTextBox.TabIndex = 15;
             // 
             // ssnTextBox
             // 
-            this.ssnTextBox.Location = new System.Drawing.Point(155, 3);
+            this.ssnTextBox.Location = new System.Drawing.Point(136, 3);
             this.ssnTextBox.Name = "ssnTextBox";
-            this.ssnTextBox.Size = new System.Drawing.Size(502, 20);
+            this.ssnTextBox.Size = new System.Drawing.Size(183, 20);
             this.ssnTextBox.TabIndex = 14;
             // 
             // RegistrationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(679, 364);
+            this.ClientSize = new System.Drawing.Size(349, 356);
             this.Controls.Add(this.memberRegistrationLayoutPanel);
             this.Controls.Add(this.submitBtn);
             this.Controls.Add(this.registrationLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RegistrationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "RegistrationForm";
+            this.Text = "Member";
             this.memberRegistrationLayoutPanel.ResumeLayout(false);
             this.memberRegistrationLayoutPanel.PerformLayout();
             this.ResumeLayout(false);

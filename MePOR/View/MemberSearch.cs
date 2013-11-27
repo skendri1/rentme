@@ -58,5 +58,10 @@ namespace MePOR.View
         {
 
         }
+
+        private void MemberSearch_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

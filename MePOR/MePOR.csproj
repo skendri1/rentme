@@ -49,6 +49,12 @@
     <Compile Include="Controller\NewMemberValidationController.cs" />
     <Compile Include="Controller\DBAccessController.cs" />
     <Compile Include="Data Access\Database.cs" />
+    <Compile Include="View\AdminInterface.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\AdminInterface.Designer.cs">
+      <DependentUpon>AdminInterface.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Invalid.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +87,9 @@
     <Compile Include="View\RegistrationForm.Designer.cs">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\AdminInterface.resx">
+      <DependentUpon>AdminInterface.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Invalid.resx">
       <DependentUpon>Invalid.cs</DependentUpon>
     </EmbeddedResource>

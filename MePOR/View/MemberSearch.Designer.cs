@@ -39,7 +39,6 @@
             this.lnameTextBox = new System.Windows.Forms.TextBox();
             this.lnameLabel = new System.Windows.Forms.Label();
             this.orLabel = new System.Windows.Forms.Label();
-            this.searchByTitle = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.searchButton = new System.Windows.Forms.Button();
             this.memberSearchGrid = new System.Windows.Forms.DataGridView();
@@ -65,7 +64,7 @@
             // 
             // phoneTextBox
             // 
-            this.phoneTextBox.Location = new System.Drawing.Point(313, 37);
+            this.phoneTextBox.Location = new System.Drawing.Point(360, 37);
             this.phoneTextBox.Name = "phoneTextBox";
             this.phoneTextBox.Size = new System.Drawing.Size(100, 20);
             this.phoneTextBox.TabIndex = 3;
@@ -73,7 +72,7 @@
             // phoneLabel
             // 
             this.phoneLabel.AutoSize = true;
-            this.phoneLabel.Location = new System.Drawing.Point(266, 40);
+            this.phoneLabel.Location = new System.Drawing.Point(313, 40);
             this.phoneLabel.Name = "phoneLabel";
             this.phoneLabel.Size = new System.Drawing.Size(41, 13);
             this.phoneLabel.TabIndex = 6;
@@ -98,21 +97,11 @@
             // orLabel
             // 
             this.orLabel.AutoSize = true;
-            this.orLabel.Location = new System.Drawing.Point(219, 40);
+            this.orLabel.Location = new System.Drawing.Point(239, 40);
             this.orLabel.Name = "orLabel";
             this.orLabel.Size = new System.Drawing.Size(23, 13);
             this.orLabel.TabIndex = 10;
             this.orLabel.Text = "OR";
-            // 
-            // searchByTitle
-            // 
-            this.searchByTitle.AutoSize = true;
-            this.searchByTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchByTitle.Location = new System.Drawing.Point(219, 13);
-            this.searchByTitle.Name = "searchByTitle";
-            this.searchByTitle.Size = new System.Drawing.Size(86, 20);
-            this.searchByTitle.TabIndex = 11;
-            this.searchByTitle.Text = "SearchBy";
             // 
             // groupBox1
             // 
@@ -123,15 +112,15 @@
             this.groupBox1.Controls.Add(this.orLabel);
             this.groupBox1.Controls.Add(this.fnameTextBox);
             this.groupBox1.Controls.Add(this.lnameLabel);
-            this.groupBox1.Location = new System.Drawing.Point(32, 38);
+            this.groupBox1.Location = new System.Drawing.Point(12, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(439, 86);
+            this.groupBox1.Size = new System.Drawing.Size(487, 89);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             // 
             // searchButton
             // 
-            this.searchButton.Location = new System.Drawing.Point(397, 336);
+            this.searchButton.Location = new System.Drawing.Point(424, 342);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(75, 23);
             this.searchButton.TabIndex = 4;
@@ -160,7 +149,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.memberSearchGrid.DefaultCellStyle = dataGridViewCellStyle2;
-            this.memberSearchGrid.Location = new System.Drawing.Point(32, 131);
+            this.memberSearchGrid.Location = new System.Drawing.Point(12, 98);
             this.memberSearchGrid.Name = "memberSearchGrid";
             this.memberSearchGrid.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -171,7 +160,7 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.memberSearchGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.memberSearchGrid.Size = new System.Drawing.Size(439, 199);
+            this.memberSearchGrid.Size = new System.Drawing.Size(487, 238);
             this.memberSearchGrid.TabIndex = 15;
             this.memberSearchGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -182,7 +171,6 @@
             this.ClientSize = new System.Drawing.Size(511, 377);
             this.Controls.Add(this.memberSearchGrid);
             this.Controls.Add(this.searchButton);
-            this.Controls.Add(this.searchByTitle);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -190,11 +178,11 @@
             this.Name = "MemberSearch";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MemberSearch";
+            this.Load += new System.EventHandler(this.MemberSearch_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.memberSearchGrid)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -207,7 +195,6 @@
         private System.Windows.Forms.TextBox lnameTextBox;
         private System.Windows.Forms.Label lnameLabel;
         private System.Windows.Forms.Label orLabel;
-        private System.Windows.Forms.Label searchByTitle;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.DataGridView memberSearchGrid;
