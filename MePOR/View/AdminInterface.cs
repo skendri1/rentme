@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MePOR.Controller;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,25 @@ namespace MePOR.View
 {
     public partial class AdminInterface : Form
     {
+        DBAccessController dbcontrol;
+
         public AdminInterface()
         {
             InitializeComponent();
+            dbcontrol = new DBAccessController();
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            string query = queryTextbox.Text;
+            DataTable dt = new DataTable();
+
+            if (query != null || !query.Equals(""))
+            {
+                dt = dbcontrol.PerformAdvancedQuery(query);
+            }
+
+            adminSearchGrid.DataSource = dt;
         }
     }
 }

@@ -201,6 +201,33 @@ namespace MePOR.DataAccess
             return dt;
         }
 
+        public DataTable PerformAdvancedQuery(string query)
+        {
+            MySqlDataReader result = null;
+            DataTable dt = new DataTable();
+            string sql = query;
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+                try
+                {
+                    cmd.Connection = new MySqlConnection(connectionSettings);
+                    cmd.Connection.Open();
+                    result = cmd.ExecuteReader();
+                    dt.Load(result);
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+            }
+            return dt;
+        }
+
         public void InsertNewMember(string fName, string mInitial, string lName, string ssn, string phoneNumber, string street, string city, string state, string zipCode)
         {
             string sql = "INSERT INTO MEMBER (fname, minitial, lname, ssn, phonenumber, street, city, state, zip) VALUES(@fName,@mInitial,@lName,@ssn,@phoneNumber,@street,@city,@state,@zipCode)";

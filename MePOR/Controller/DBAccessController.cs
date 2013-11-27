@@ -51,5 +51,10 @@ namespace MePOR.Controller
         {
             return this.db.SearchItem(searchCriteria, search);
         }
+
+        public DataTable PerformAdvancedQuery(string query)
+        {
+            return this.db.PerformAdvancedQuery(query);
+        }
     }
 }
