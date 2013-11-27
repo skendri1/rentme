@@ -56,5 +56,10 @@ namespace MePOR.Controller
         {
             return this.db.PerformAdvancedQuery(query);
         }
+
+        public DataTable GetRentalsInDateRange(DateTime startDate, DateTime endDate)
+        {
+            return this.db.GetRentalsInDateRange(startDate, endDate);
+        }
     }
 }

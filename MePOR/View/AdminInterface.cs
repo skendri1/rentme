@@ -26,11 +26,17 @@ namespace MePOR.View
             string query = queryTextbox.Text;
             DataTable dt = new DataTable();
 
-            if (query != null || !query.Equals(""))
+            if (query != null && !query.Equals(""))
             {
                 dt = dbcontrol.PerformAdvancedQuery(query);
+                adminSearchGrid.DataSource = dt;
+                return;
             }
 
+            DateTime startDate = this.startDatePicker.Value;
+            DateTime endDate = this.endDatePicker.Value;
+
+            dt = dbcontrol.GetRentalsInDateRange(startDate, endDate);
             adminSearchGrid.DataSource = dt;
         }
     }

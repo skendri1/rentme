@@ -201,6 +201,40 @@ namespace MePOR.DataAccess
             return dt;
         }
 
+        public DataTable GetRentalsInDateRange(DateTime startDate, DateTime endDate)
+        {
+            MySqlDataReader result = null;
+            DataTable dt = new DataTable();
+
+            string sql = "SELECT r.rentalid, fname, lname, rentaldatetime, duedate, i.name, c.quantityrented FROM ((RENTAL r JOIN CONTAINS c ON r.rentalid=c.rentalid) JOIN MEMBER m ON r.memberid=m.memberid) JOIN ITEM i ON c.itemnumber=i.itemnumber WHERE r.rentaldatetime >= @start AND r.rentaldatetime <= @end ";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+                cmd.Parameters.Add("@start", MySql.Data.MySqlClient.MySqlDbType.DateTime);
+                cmd.Parameters.Add("@end", MySql.Data.MySqlClient.MySqlDbType.DateTime);
+
+                cmd.Parameters["@start"].Value = startDate.ToString("yyyy-MM-dd HH:mm:ss");
+                cmd.Parameters["@end"].Value = endDate.ToString("yyyy-MM-dd HH:mm:ss");
+
+                try
+                {
+                    cmd.Connection = new MySqlConnection(connectionSettings);
+                    cmd.Connection.Open();
+                    result = cmd.ExecuteReader();
+                    dt.Load(result);
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+            }
+            return dt;
+        }
+
         public DataTable PerformAdvancedQuery(string query)
         {
             MySqlDataReader result = null;
