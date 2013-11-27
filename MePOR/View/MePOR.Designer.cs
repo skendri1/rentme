@@ -29,62 +29,208 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MePOR));
-            this.userLabel = new System.Windows.Forms.Label();
-            this.registerBtn = new System.Windows.Forms.Button();
+            this.registerButton = new System.Windows.Forms.Button();
             this.memberSearchButton = new System.Windows.Forms.Button();
+            this.transactionTypeGroupBox = new System.Windows.Forms.GroupBox();
+            this.rentalRadio = new System.Windows.Forms.RadioButton();
+            this.returnRadio = new System.Windows.Forms.RadioButton();
+            this.memberInformationGroupBox = new System.Windows.Forms.GroupBox();
+            this.memberDataGridView = new System.Windows.Forms.DataGridView();
+            this.selectedItemsGroupBox = new System.Windows.Forms.GroupBox();
+            this.searchForItemsGroupBox = new System.Windows.Forms.GroupBox();
+            this.selectedItemsDataGridView = new System.Windows.Forms.DataGridView();
+            this.searchItemsGridView = new System.Windows.Forms.DataGridView();
+            this.searchByDropDown = new System.Windows.Forms.ComboBox();
+            this.searchByLabel = new System.Windows.Forms.Label();
+            this.searchItemsButton = new System.Windows.Forms.Button();
+            this.transactionTypeGroupBox.SuspendLayout();
+            this.memberInformationGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.memberDataGridView)).BeginInit();
+            this.selectedItemsGroupBox.SuspendLayout();
+            this.searchForItemsGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.selectedItemsDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchItemsGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // userLabel
+            // registerButton
             // 
-            this.userLabel.AutoSize = true;
-            this.userLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.userLabel.Location = new System.Drawing.Point(87, 9);
-            this.userLabel.Name = "userLabel";
-            this.userLabel.Size = new System.Drawing.Size(251, 36);
-            this.userLabel.TabIndex = 0;
-            this.userLabel.Text = "Employee System";
-            // 
-            // registerBtn
-            // 
-            this.registerBtn.Location = new System.Drawing.Point(33, 62);
-            this.registerBtn.Name = "registerBtn";
-            this.registerBtn.Size = new System.Drawing.Size(109, 61);
-            this.registerBtn.TabIndex = 2;
-            this.registerBtn.Text = "Register";
-            this.registerBtn.UseVisualStyleBackColor = true;
-            this.registerBtn.Click += new System.EventHandler(this.registerBtn_Click);
+            this.registerButton.Location = new System.Drawing.Point(12, 69);
+            this.registerButton.Name = "registerButton";
+            this.registerButton.Size = new System.Drawing.Size(127, 48);
+            this.registerButton.TabIndex = 2;
+            this.registerButton.Text = "Register";
+            this.registerButton.UseVisualStyleBackColor = true;
+            this.registerButton.Click += new System.EventHandler(this.registerBtn_Click);
             // 
             // memberSearchButton
             // 
-            this.memberSearchButton.Location = new System.Drawing.Point(33, 140);
+            this.memberSearchButton.Location = new System.Drawing.Point(362, 80);
             this.memberSearchButton.Name = "memberSearchButton";
-            this.memberSearchButton.Size = new System.Drawing.Size(109, 63);
+            this.memberSearchButton.Size = new System.Drawing.Size(93, 24);
             this.memberSearchButton.TabIndex = 3;
             this.memberSearchButton.Text = "Member Search";
             this.memberSearchButton.UseVisualStyleBackColor = true;
             this.memberSearchButton.Click += new System.EventHandler(this.memberSearchButton_Click);
             // 
+            // transactionTypeGroupBox
+            // 
+            this.transactionTypeGroupBox.Controls.Add(this.returnRadio);
+            this.transactionTypeGroupBox.Controls.Add(this.rentalRadio);
+            this.transactionTypeGroupBox.Location = new System.Drawing.Point(12, 22);
+            this.transactionTypeGroupBox.Name = "transactionTypeGroupBox";
+            this.transactionTypeGroupBox.Size = new System.Drawing.Size(127, 41);
+            this.transactionTypeGroupBox.TabIndex = 4;
+            this.transactionTypeGroupBox.TabStop = false;
+            this.transactionTypeGroupBox.Text = "Transaction Type";
+            // 
+            // rentalRadio
+            // 
+            this.rentalRadio.AutoSize = true;
+            this.rentalRadio.Checked = true;
+            this.rentalRadio.Location = new System.Drawing.Point(6, 17);
+            this.rentalRadio.Name = "rentalRadio";
+            this.rentalRadio.Size = new System.Drawing.Size(56, 17);
+            this.rentalRadio.TabIndex = 5;
+            this.rentalRadio.TabStop = true;
+            this.rentalRadio.Text = "Rental";
+            this.rentalRadio.UseVisualStyleBackColor = true;
+            // 
+            // returnRadio
+            // 
+            this.returnRadio.AutoSize = true;
+            this.returnRadio.Location = new System.Drawing.Point(68, 17);
+            this.returnRadio.Name = "returnRadio";
+            this.returnRadio.Size = new System.Drawing.Size(57, 17);
+            this.returnRadio.TabIndex = 6;
+            this.returnRadio.Text = "Return";
+            this.returnRadio.UseVisualStyleBackColor = true;
+            // 
+            // memberInformationGroupBox
+            // 
+            this.memberInformationGroupBox.Controls.Add(this.memberDataGridView);
+            this.memberInformationGroupBox.Controls.Add(this.memberSearchButton);
+            this.memberInformationGroupBox.Location = new System.Drawing.Point(157, 13);
+            this.memberInformationGroupBox.Name = "memberInformationGroupBox";
+            this.memberInformationGroupBox.Size = new System.Drawing.Size(461, 110);
+            this.memberInformationGroupBox.TabIndex = 5;
+            this.memberInformationGroupBox.TabStop = false;
+            this.memberInformationGroupBox.Text = "Member Information";
+            // 
+            // memberDataGridView
+            // 
+            this.memberDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.memberDataGridView.Location = new System.Drawing.Point(6, 19);
+            this.memberDataGridView.Name = "memberDataGridView";
+            this.memberDataGridView.Size = new System.Drawing.Size(449, 55);
+            this.memberDataGridView.TabIndex = 6;
+            // 
+            // selectedItemsGroupBox
+            // 
+            this.selectedItemsGroupBox.Controls.Add(this.selectedItemsDataGridView);
+            this.selectedItemsGroupBox.Location = new System.Drawing.Point(12, 136);
+            this.selectedItemsGroupBox.Name = "selectedItemsGroupBox";
+            this.selectedItemsGroupBox.Size = new System.Drawing.Size(606, 85);
+            this.selectedItemsGroupBox.TabIndex = 6;
+            this.selectedItemsGroupBox.TabStop = false;
+            this.selectedItemsGroupBox.Text = "Selected Items";
+            // 
+            // searchForItemsGroupBox
+            // 
+            this.searchForItemsGroupBox.Controls.Add(this.searchItemsButton);
+            this.searchForItemsGroupBox.Controls.Add(this.searchByLabel);
+            this.searchForItemsGroupBox.Controls.Add(this.searchByDropDown);
+            this.searchForItemsGroupBox.Controls.Add(this.searchItemsGridView);
+            this.searchForItemsGroupBox.Location = new System.Drawing.Point(12, 227);
+            this.searchForItemsGroupBox.Name = "searchForItemsGroupBox";
+            this.searchForItemsGroupBox.Size = new System.Drawing.Size(606, 176);
+            this.searchForItemsGroupBox.TabIndex = 7;
+            this.searchForItemsGroupBox.TabStop = false;
+            this.searchForItemsGroupBox.Text = "SearchForItems";
+            // 
+            // selectedItemsDataGridView
+            // 
+            this.selectedItemsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.selectedItemsDataGridView.Location = new System.Drawing.Point(6, 19);
+            this.selectedItemsDataGridView.Name = "selectedItemsDataGridView";
+            this.selectedItemsDataGridView.Size = new System.Drawing.Size(594, 55);
+            this.selectedItemsDataGridView.TabIndex = 7;
+            // 
+            // searchItemsGridView
+            // 
+            this.searchItemsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.searchItemsGridView.Location = new System.Drawing.Point(6, 61);
+            this.searchItemsGridView.Name = "searchItemsGridView";
+            this.searchItemsGridView.Size = new System.Drawing.Size(594, 109);
+            this.searchItemsGridView.TabIndex = 7;
+            // 
+            // searchByDropDown
+            // 
+            this.searchByDropDown.FormattingEnabled = true;
+            this.searchByDropDown.Location = new System.Drawing.Point(72, 23);
+            this.searchByDropDown.Name = "searchByDropDown";
+            this.searchByDropDown.Size = new System.Drawing.Size(121, 21);
+            this.searchByDropDown.TabIndex = 8;
+            // 
+            // searchByLabel
+            // 
+            this.searchByLabel.AutoSize = true;
+            this.searchByLabel.Location = new System.Drawing.Point(7, 26);
+            this.searchByLabel.Name = "searchByLabel";
+            this.searchByLabel.Size = new System.Drawing.Size(59, 13);
+            this.searchByLabel.TabIndex = 9;
+            this.searchByLabel.Text = "Search By:";
+            // 
+            // searchItemsButton
+            // 
+            this.searchItemsButton.Location = new System.Drawing.Point(525, 21);
+            this.searchItemsButton.Name = "searchItemsButton";
+            this.searchItemsButton.Size = new System.Drawing.Size(75, 23);
+            this.searchItemsButton.TabIndex = 10;
+            this.searchItemsButton.Text = "Search";
+            this.searchItemsButton.UseVisualStyleBackColor = true;
+            // 
             // MePOR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(436, 344);
-            this.Controls.Add(this.memberSearchButton);
-            this.Controls.Add(this.registerBtn);
-            this.Controls.Add(this.userLabel);
+            this.ClientSize = new System.Drawing.Size(630, 420);
+            this.Controls.Add(this.searchForItemsGroupBox);
+            this.Controls.Add(this.selectedItemsGroupBox);
+            this.Controls.Add(this.memberInformationGroupBox);
+            this.Controls.Add(this.transactionTypeGroupBox);
+            this.Controls.Add(this.registerButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MePOR";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MePOR";
+            this.Text = "Employee Interface";
+            this.transactionTypeGroupBox.ResumeLayout(false);
+            this.transactionTypeGroupBox.PerformLayout();
+            this.memberInformationGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.memberDataGridView)).EndInit();
+            this.selectedItemsGroupBox.ResumeLayout(false);
+            this.searchForItemsGroupBox.ResumeLayout(false);
+            this.searchForItemsGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.selectedItemsDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchItemsGridView)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label userLabel;
-        private System.Windows.Forms.Button registerBtn;
+        private System.Windows.Forms.Button registerButton;
         private System.Windows.Forms.Button memberSearchButton;
+        private System.Windows.Forms.GroupBox transactionTypeGroupBox;
+        private System.Windows.Forms.RadioButton returnRadio;
+        private System.Windows.Forms.RadioButton rentalRadio;
+        private System.Windows.Forms.GroupBox memberInformationGroupBox;
+        private System.Windows.Forms.DataGridView memberDataGridView;
+        private System.Windows.Forms.GroupBox selectedItemsGroupBox;
+        private System.Windows.Forms.DataGridView selectedItemsDataGridView;
+        private System.Windows.Forms.GroupBox searchForItemsGroupBox;
+        private System.Windows.Forms.Button searchItemsButton;
+        private System.Windows.Forms.Label searchByLabel;
+        private System.Windows.Forms.ComboBox searchByDropDown;
+        private System.Windows.Forms.DataGridView searchItemsGridView;
     }
 }

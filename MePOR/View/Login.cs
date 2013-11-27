@@ -33,7 +33,11 @@ namespace MePOR
             }
             else if (dbControl.AuthenticateAdministrator(this._username, this._password))
             {
-                this.StartMePOR(UserType.Administrator);
+                AdminInterface adminInterface = new AdminInterface();
+                this.Hide();
+                adminInterface.ShowDialog(this);
+                adminInterface.Dispose();
+                this.Show();
             }
             else
             {

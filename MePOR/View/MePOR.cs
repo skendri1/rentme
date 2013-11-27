@@ -20,22 +20,11 @@ namespace MePOR
 
     public partial class MePOR : Form
     {
+        public readonly string[] ITEMSEARCHBY = { "Number", "Name", "Category", "Style" };
+
         public MePOR(UserType userType)
         {
             InitializeComponent();
-            SetUserText(userType);
-        }
-
-        private void SetUserText(UserType userType)
-        {
-            if (userType == UserType.Employee)
-            {
-                this.userLabel.Text = "Employee System";
-            }
-            if (userType == UserType.Administrator)
-            {
-                this.userLabel.Text = "Administrator System";
-            }
         }
 
         private void registerBtn_Click(object sender, EventArgs e)
