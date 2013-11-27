@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MePOR.View;
+using MePOR.Controller;
 
 namespace MePOR
 {
@@ -20,18 +21,26 @@ namespace MePOR
 
     public partial class MePOR : Form
     {
-        public readonly string[] ITEMSEARCHBY = { "Number", "Name", "Category", "Style" };
+        public const string NUMBER = "Number";
+        public const string NAME = "Name";
+        public const string CATEGORY = "Category";
+        public const string STYLE = "Style";
+
+        public readonly string[] ITEMSEARCHBY = { NUMBER, NAME, CATEGORY, STYLE };
+
+        DBAccessController dbcontrol;
 
         public MePOR(UserType userType)
         {
             InitializeComponent();
+            dbcontrol = new DBAccessController();
+            this.searchByDropDown.DataSource = ITEMSEARCHBY;
         }
 
         private void registerBtn_Click(object sender, EventArgs e)
         {
             using (var form = new RegistrationForm())
             {
-                this.Hide();
                 var result = form.ShowDialog();
                 this.Show();
 
@@ -44,9 +53,7 @@ namespace MePOR
                         + "\nZip: " + memberInfo[8];
                 
                     MessageBox.Show(memberInfoString, "Confirmation");
-                }
-                
-                
+                }                
             }
         }
 
@@ -54,6 +61,30 @@ namespace MePOR
         {
             var form = new MemberSearch();
             form.ShowDialog();
+        }
+
+        private void searchItemsButton_Click(object sender, EventArgs e)
+        {
+            DataTable dt = null;
+            string search = this.search.Text;
+
+            switch(this.searchByDropDown.Text)
+            {
+                case NUMBER:
+                    dt = dbcontrol.SearchItem(NUMBER, search);
+                    break;
+                case NAME:
+                    dt = dbcontrol.SearchItem(NAME, search);
+                    break;
+                case CATEGORY:
+                    dt = dbcontrol.SearchItem(CATEGORY, search);
+                    break;
+                case STYLE:
+                    dt = dbcontrol.SearchItem(STYLE, search);
+                    break;
+            }
+
+            this.searchItemsGridView.DataSource = dt;
         }
     }
 }

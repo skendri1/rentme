@@ -114,6 +114,60 @@ namespace MePOR.DataAccess
             return dt;
         }
 
+        public DataTable SearchItem(string searchCriteria, string search)
+        {
+            MySqlDataReader result = null;
+            DataTable dt = new DataTable();
+            string sql = null;
+
+            switch (searchCriteria)
+            {
+                case MePOR.NUMBER:
+                    sql = "select itemnumber, name, category, style, dailyrate, totalstock, itemsavailable from ITEM where itemnumber=@number";
+                    break;
+                case MePOR.NAME:
+                    sql = "select itemnumber, name, category, style, dailyrate, totalstock, itemsavailable from ITEM where name=@search";
+                    break;
+                case MePOR.CATEGORY:
+                    sql = "select itemnumber, name, category, style, dailyrate, totalstock, itemsavailable from ITEM where category=@search";
+                    break;
+                case MePOR.STYLE:
+                    sql = "select itemnumber, name, category, style, dailyrate, totalstock, itemsavailable from ITEM where style=@search";
+                    break;
+            }
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+                if (searchCriteria.Equals(MePOR.NUMBER))
+                {
+                    cmd.Parameters.Add("@number", MySql.Data.MySqlClient.MySqlDbType.Int32, 11);
+                    cmd.Parameters["@number"].Value = search;
+                }
+                else
+                {
+                    cmd.Parameters.Add("@search", MySql.Data.MySqlClient.MySqlDbType.VarChar, 15);
+                    cmd.Parameters["@search"].Value = search;
+                }
+
+                try
+                {
+                    cmd.Connection = new MySqlConnection(connectionSettings);
+                    cmd.Connection.Open();
+                    result = cmd.ExecuteReader();
+                    dt.Load(result);
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+            }
+            return dt;
+        }
+
         public DataTable SearchCustomerByName(string fname, string lname)
         {
             MySqlDataReader result = null;

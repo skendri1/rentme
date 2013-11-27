@@ -174,6 +174,7 @@
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AdminInterface";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AdminInterface";
             ((System.ComponentModel.ISupportInitialize)(this.adminSearchGrid)).EndInit();
             this.groupBox1.ResumeLayout(false);

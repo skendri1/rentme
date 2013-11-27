@@ -43,6 +43,8 @@
             this.searchByDropDown = new System.Windows.Forms.ComboBox();
             this.searchByLabel = new System.Windows.Forms.Label();
             this.searchItemsButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.search = new System.Windows.Forms.TextBox();
             this.transactionTypeGroupBox.SuspendLayout();
             this.memberInformationGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.memberDataGridView)).BeginInit();
@@ -57,7 +59,7 @@
             this.registerButton.Location = new System.Drawing.Point(12, 69);
             this.registerButton.Name = "registerButton";
             this.registerButton.Size = new System.Drawing.Size(127, 48);
-            this.registerButton.TabIndex = 2;
+            this.registerButton.TabIndex = 3;
             this.registerButton.Text = "Register";
             this.registerButton.UseVisualStyleBackColor = true;
             this.registerButton.Click += new System.EventHandler(this.registerBtn_Click);
@@ -67,7 +69,7 @@
             this.memberSearchButton.Location = new System.Drawing.Point(362, 80);
             this.memberSearchButton.Name = "memberSearchButton";
             this.memberSearchButton.Size = new System.Drawing.Size(93, 24);
-            this.memberSearchButton.TabIndex = 3;
+            this.memberSearchButton.TabIndex = 4;
             this.memberSearchButton.Text = "Member Search";
             this.memberSearchButton.UseVisualStyleBackColor = true;
             this.memberSearchButton.Click += new System.EventHandler(this.memberSearchButton_Click);
@@ -90,7 +92,7 @@
             this.rentalRadio.Location = new System.Drawing.Point(6, 17);
             this.rentalRadio.Name = "rentalRadio";
             this.rentalRadio.Size = new System.Drawing.Size(56, 17);
-            this.rentalRadio.TabIndex = 5;
+            this.rentalRadio.TabIndex = 1;
             this.rentalRadio.TabStop = true;
             this.rentalRadio.Text = "Rental";
             this.rentalRadio.UseVisualStyleBackColor = true;
@@ -101,7 +103,8 @@
             this.returnRadio.Location = new System.Drawing.Point(68, 17);
             this.returnRadio.Name = "returnRadio";
             this.returnRadio.Size = new System.Drawing.Size(57, 17);
-            this.returnRadio.TabIndex = 6;
+            this.returnRadio.TabIndex = 2;
+            this.returnRadio.TabStop = true;
             this.returnRadio.Text = "Return";
             this.returnRadio.UseVisualStyleBackColor = true;
             // 
@@ -123,6 +126,7 @@
             this.memberDataGridView.Name = "memberDataGridView";
             this.memberDataGridView.Size = new System.Drawing.Size(449, 55);
             this.memberDataGridView.TabIndex = 6;
+            this.memberDataGridView.TabStop = false;
             // 
             // selectedItemsGroupBox
             // 
@@ -136,6 +140,8 @@
             // 
             // searchForItemsGroupBox
             // 
+            this.searchForItemsGroupBox.Controls.Add(this.search);
+            this.searchForItemsGroupBox.Controls.Add(this.label1);
             this.searchForItemsGroupBox.Controls.Add(this.searchItemsButton);
             this.searchForItemsGroupBox.Controls.Add(this.searchByLabel);
             this.searchForItemsGroupBox.Controls.Add(this.searchByDropDown);
@@ -154,6 +160,7 @@
             this.selectedItemsDataGridView.Name = "selectedItemsDataGridView";
             this.selectedItemsDataGridView.Size = new System.Drawing.Size(594, 55);
             this.selectedItemsDataGridView.TabIndex = 7;
+            this.selectedItemsDataGridView.TabStop = false;
             // 
             // searchItemsGridView
             // 
@@ -162,14 +169,15 @@
             this.searchItemsGridView.Name = "searchItemsGridView";
             this.searchItemsGridView.Size = new System.Drawing.Size(594, 109);
             this.searchItemsGridView.TabIndex = 7;
+            this.searchItemsGridView.TabStop = false;
             // 
             // searchByDropDown
             // 
             this.searchByDropDown.FormattingEnabled = true;
             this.searchByDropDown.Location = new System.Drawing.Point(72, 23);
             this.searchByDropDown.Name = "searchByDropDown";
-            this.searchByDropDown.Size = new System.Drawing.Size(121, 21);
-            this.searchByDropDown.TabIndex = 8;
+            this.searchByDropDown.Size = new System.Drawing.Size(86, 21);
+            this.searchByDropDown.TabIndex = 5;
             // 
             // searchByLabel
             // 
@@ -185,9 +193,26 @@
             this.searchItemsButton.Location = new System.Drawing.Point(525, 21);
             this.searchItemsButton.Name = "searchItemsButton";
             this.searchItemsButton.Size = new System.Drawing.Size(75, 23);
-            this.searchItemsButton.TabIndex = 10;
+            this.searchItemsButton.TabIndex = 7;
             this.searchItemsButton.Text = "Search";
             this.searchItemsButton.UseVisualStyleBackColor = true;
+            this.searchItemsButton.Click += new System.EventHandler(this.searchItemsButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(180, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Search:";
+            // 
+            // search
+            // 
+            this.search.Location = new System.Drawing.Point(230, 24);
+            this.search.Name = "search";
+            this.search.Size = new System.Drawing.Size(114, 20);
+            this.search.TabIndex = 6;
             // 
             // MePOR
             // 
@@ -232,5 +257,7 @@
         private System.Windows.Forms.Label searchByLabel;
         private System.Windows.Forms.ComboBox searchByDropDown;
         private System.Windows.Forms.DataGridView searchItemsGridView;
+        private System.Windows.Forms.TextBox search;
+        private System.Windows.Forms.Label label1;
     }
 }

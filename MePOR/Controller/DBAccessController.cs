@@ -46,5 +46,10 @@ namespace MePOR.Controller
             }
             return false;
         }
+
+        public DataTable SearchItem(string searchCriteria, string search)
+        {
+            return this.db.SearchItem(searchCriteria, search);
+        }
     }
 }
