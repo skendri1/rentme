@@ -28,6 +28,8 @@ namespace MePOR
 
         public readonly string[] ITEMSEARCHBY = { NUMBER, NAME, CATEGORY, STYLE };
 
+        private List<string> selectedItemIDs; 
+        
         DBAccessController dbcontrol;
 
         public MePOR(UserType userType)
@@ -36,6 +38,7 @@ namespace MePOR
             dbcontrol = new DBAccessController();
             this.searchByDropDown.DataSource = ITEMSEARCHBY;
             this.rentOrReturnExecuteButton.Text = "Rent";
+            this.selectedItemIDs = new List<string>();
         }
 
         private void registerBtn_Click(object sender, EventArgs e)
@@ -115,6 +118,12 @@ namespace MePOR
 
         private void addToSelectedItemsButton_Click(object sender, EventArgs e)
         {
+
+            if (this.searchItemsGridView.SelectedRows.Count <= 0)
+            {
+                return;
+            }
+
             if (this.selectedItemsDataGridView.Columns.Count == 0)
             {
                 foreach (DataGridViewColumn col in this.searchItemsGridView.Columns)
@@ -126,22 +135,91 @@ namespace MePOR
             }
 
             
-
+            List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
             foreach (DataGridViewRow selectedRow in this.searchItemsGridView.SelectedRows)
             {
-                List<string> cells = new List<string>();
-
-                foreach (DataGridViewCell cell in selectedRow.Cells)
+                string selectedRowItemID = selectedRow.Cells[0].Value.ToString();
+                if (!this.selectedItemIDs.Contains(selectedRowItemID))
                 {
-                    cells.Add(cell.Value.ToString());
+
+                    List<string> cells = new List<string>();
+
+                    foreach (DataGridViewCell cell in selectedRow.Cells)
+                    {
+                        cells.Add(cell.Value.ToString());
+                    }
+
+                    cells.Add("1");
+
+                    this.selectedItemsDataGridView.Rows.Add(cells.ToArray());
+                    this.selectedItemIDs.Add(selectedRowItemID);
+                    rowsToRemove.Add(selectedRow);
                 }
+            }
 
-                cells.Add("1");
-
-                this.selectedItemsDataGridView.Rows.Add(cells.ToArray());
+            foreach (DataGridViewRow row in rowsToRemove)
+            {
+                this.searchItemsGridView.Rows.Remove(row);
             }
         }
 
+        private void rentOrReturnExecuteButton_Click(object sender, EventArgs e)
+        {
+            //If the rental radio button is selected, perform rental
+            if (this.rentalRadio.Checked)
+            {
+
+            }
+            //If the return radio button is selected, perform return
+            else
+            {
+                
+            }
+        }
+
+        private void selectedItemsDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex != this.selectedItemsDataGridView.Columns.Count - 1)
+            {
+                return;
+            }
+
+            string qtyToRentString = this.selectedItemsDataGridView[e.ColumnIndex, e.RowIndex].Value.ToString();
+            string availableToRentString =
+                this.selectedItemsDataGridView[e.ColumnIndex - 1, e.RowIndex].Value.ToString();
+
+            int available = Convert.ToInt32(availableToRentString);
+            int qtyToRent = Convert.ToInt32(qtyToRentString);
+
+            if (qtyToRent > available || qtyToRent <= 0)
+            {
+                string invalidQty = "Quantity to rent is invalid, please choose a number from 1 to " +
+                                    availableToRentString;
+
+                MessageBox.Show(invalidQty, "Invalid Number");
+
+                this.selectedItemsDataGridView[e.ColumnIndex, e.RowIndex].ErrorText = "Invalid Qty";
+            }
+            else
+            {
+                this.selectedItemsDataGridView[e.ColumnIndex, e.RowIndex].ErrorText = string.Empty;
+            }
+
+        }
+
+        private void clearSelectedItemsButton_Click(object sender, EventArgs e)
+        {
+            if (this.selectedItemsDataGridView.Rows.Count > 0)
+            {
+                this.selectedItemsDataGridView.Rows.Clear();
+            }
+            
+            if (this.selectedItemIDs.Count > 0)
+            {
+                this.selectedItemIDs.Clear();
+            }
+            
+        }
 
     }
 }
