@@ -78,3 +78,4 @@ C:\Users\Drew\Desktop\Info Final Project\MePOR\obj\Debug\MePOR.MePOR.resources
 C:\Users\Drew\Desktop\Info Final Project\MePOR\obj\Debug\MePOR.Properties.Resources.resources
 C:\Users\Drew\Desktop\Info Final Project\MePOR\obj\Debug\MePOR.View.RegistrationForm.resources
 C:\Users\Drew\Desktop\Info Final Project\MePOR\obj\Debug\MePOR.csproj.GenerateResource.Cache
+C:\Users\Stephen Kendrick\Documents\UWG Fall 2013\Info Management\MePOR\MePOR\obj\Debug\MePOR.View.AdminInterface.resources

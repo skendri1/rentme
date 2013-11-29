@@ -59,8 +59,23 @@ namespace MePOR
 
         private void memberSearchButton_Click(object sender, EventArgs e)
         {
-            var form = new MemberSearch();
-            form.ShowDialog();
+            using (var form = new MemberSearch())
+            {
+                var result = form.ShowDialog();
+                this.Show();
+
+                DataTable selectedMember = form.result;
+
+                if (selectedMember != null)
+                {
+                    this.memberDataGridView.DataSource = selectedMember;
+                }
+            }
+
+            //var form = new MemberSearch();
+            //form.ShowDialog();
+
+           
         }
 
         private void searchItemsButton_Click(object sender, EventArgs e)

@@ -160,6 +160,7 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.memberSearchGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.memberSearchGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.memberSearchGrid.Size = new System.Drawing.Size(487, 238);
             this.memberSearchGrid.TabIndex = 15;
             this.memberSearchGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);

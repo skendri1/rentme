@@ -16,7 +16,7 @@ namespace MePOR.View
     public partial class MemberSearch : Form
     {
         DBAccessController dbControl;
-        DataTable result;
+        public DataTable result;
 
         public MemberSearch()
         {
@@ -56,7 +56,20 @@ namespace MePOR.View
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            int selectedRowIndex = e.RowIndex;
 
+            for (int i = this.result.Rows.Count - 1; i >= 0; i--)
+            {
+                if (i != selectedRowIndex)
+                {
+                    DataRow row = this.result.Rows[i];
+                    row.Delete();
+                }
+                
+
+            }
+
+            this.Close();
         }
 
         private void MemberSearch_Load(object sender, EventArgs e)
