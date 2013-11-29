@@ -35,6 +35,7 @@ namespace MePOR
             InitializeComponent();
             dbcontrol = new DBAccessController();
             this.searchByDropDown.DataSource = ITEMSEARCHBY;
+            this.rentOrReturnExecuteButton.Text = "Rent";
         }
 
         private void registerBtn_Click(object sender, EventArgs e)
@@ -101,5 +102,46 @@ namespace MePOR
 
             this.searchItemsGridView.DataSource = dt;
         }
+
+        private void rentalRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            this.rentOrReturnExecuteButton.Text = "Rent";
+        }
+
+        private void returnRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            this.rentOrReturnExecuteButton.Text = "Return";
+        }
+
+        private void addToSelectedItemsButton_Click(object sender, EventArgs e)
+        {
+            if (this.selectedItemsDataGridView.Columns.Count == 0)
+            {
+                foreach (DataGridViewColumn col in this.searchItemsGridView.Columns)
+                {
+                    this.selectedItemsDataGridView.Columns.Add(col.Name, col.HeaderText);
+                }
+
+                this.selectedItemsDataGridView.Columns.Add("NumberToRent", "Quantity To Rent");
+            }
+
+            
+
+            foreach (DataGridViewRow selectedRow in this.searchItemsGridView.SelectedRows)
+            {
+                List<string> cells = new List<string>();
+
+                foreach (DataGridViewCell cell in selectedRow.Cells)
+                {
+                    cells.Add(cell.Value.ToString());
+                }
+
+                cells.Add("1");
+
+                this.selectedItemsDataGridView.Rows.Add(cells.ToArray());
+            }
+        }
+
+
     }
 }

@@ -45,6 +45,8 @@
             this.searchByLabel = new System.Windows.Forms.Label();
             this.searchByDropDown = new System.Windows.Forms.ComboBox();
             this.searchItemsGridView = new System.Windows.Forms.DataGridView();
+            this.rentOrReturnExecuteButton = new System.Windows.Forms.Button();
+            this.addToSelectedItemsButton = new System.Windows.Forms.Button();
             this.transactionTypeGroupBox.SuspendLayout();
             this.memberInformationGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.memberDataGridView)).BeginInit();
@@ -66,7 +68,7 @@
             // 
             // memberSearchButton
             // 
-            this.memberSearchButton.Location = new System.Drawing.Point(362, 87);
+            this.memberSearchButton.Location = new System.Drawing.Point(441, 87);
             this.memberSearchButton.Name = "memberSearchButton";
             this.memberSearchButton.Size = new System.Drawing.Size(93, 24);
             this.memberSearchButton.TabIndex = 4;
@@ -95,6 +97,7 @@
             this.returnRadio.TabStop = true;
             this.returnRadio.Text = "Return";
             this.returnRadio.UseVisualStyleBackColor = true;
+            this.returnRadio.CheckedChanged += new System.EventHandler(this.returnRadio_CheckedChanged);
             // 
             // rentalRadio
             // 
@@ -107,6 +110,7 @@
             this.rentalRadio.TabStop = true;
             this.rentalRadio.Text = "Rental";
             this.rentalRadio.UseVisualStyleBackColor = true;
+            this.rentalRadio.CheckedChanged += new System.EventHandler(this.rentalRadio_CheckedChanged);
             // 
             // memberInformationGroupBox
             // 
@@ -114,7 +118,7 @@
             this.memberInformationGroupBox.Controls.Add(this.memberSearchButton);
             this.memberInformationGroupBox.Location = new System.Drawing.Point(157, 13);
             this.memberInformationGroupBox.Name = "memberInformationGroupBox";
-            this.memberInformationGroupBox.Size = new System.Drawing.Size(461, 117);
+            this.memberInformationGroupBox.Size = new System.Drawing.Size(540, 117);
             this.memberInformationGroupBox.TabIndex = 5;
             this.memberInformationGroupBox.TabStop = false;
             this.memberInformationGroupBox.Text = "Member Information";
@@ -126,7 +130,7 @@
             this.memberDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.memberDataGridView.Location = new System.Drawing.Point(6, 19);
             this.memberDataGridView.Name = "memberDataGridView";
-            this.memberDataGridView.Size = new System.Drawing.Size(449, 62);
+            this.memberDataGridView.Size = new System.Drawing.Size(528, 62);
             this.memberDataGridView.TabIndex = 6;
             this.memberDataGridView.TabStop = false;
             // 
@@ -135,31 +139,35 @@
             this.selectedItemsGroupBox.Controls.Add(this.selectedItemsDataGridView);
             this.selectedItemsGroupBox.Location = new System.Drawing.Point(12, 136);
             this.selectedItemsGroupBox.Name = "selectedItemsGroupBox";
-            this.selectedItemsGroupBox.Size = new System.Drawing.Size(606, 85);
+            this.selectedItemsGroupBox.Size = new System.Drawing.Size(685, 105);
             this.selectedItemsGroupBox.TabIndex = 6;
             this.selectedItemsGroupBox.TabStop = false;
             this.selectedItemsGroupBox.Text = "Selected Items";
             // 
             // selectedItemsDataGridView
             // 
+            this.selectedItemsDataGridView.AllowUserToAddRows = false;
+            this.selectedItemsDataGridView.AllowUserToDeleteRows = false;
+            this.selectedItemsDataGridView.AllowUserToResizeRows = false;
             this.selectedItemsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.selectedItemsDataGridView.Location = new System.Drawing.Point(6, 19);
             this.selectedItemsDataGridView.Name = "selectedItemsDataGridView";
-            this.selectedItemsDataGridView.Size = new System.Drawing.Size(594, 55);
+            this.selectedItemsDataGridView.Size = new System.Drawing.Size(673, 80);
             this.selectedItemsDataGridView.TabIndex = 7;
             this.selectedItemsDataGridView.TabStop = false;
             // 
             // searchForItemsGroupBox
             // 
+            this.searchForItemsGroupBox.Controls.Add(this.addToSelectedItemsButton);
             this.searchForItemsGroupBox.Controls.Add(this.search);
             this.searchForItemsGroupBox.Controls.Add(this.label1);
             this.searchForItemsGroupBox.Controls.Add(this.searchItemsButton);
             this.searchForItemsGroupBox.Controls.Add(this.searchByLabel);
             this.searchForItemsGroupBox.Controls.Add(this.searchByDropDown);
             this.searchForItemsGroupBox.Controls.Add(this.searchItemsGridView);
-            this.searchForItemsGroupBox.Location = new System.Drawing.Point(12, 227);
+            this.searchForItemsGroupBox.Location = new System.Drawing.Point(12, 247);
             this.searchForItemsGroupBox.Name = "searchForItemsGroupBox";
-            this.searchForItemsGroupBox.Size = new System.Drawing.Size(606, 176);
+            this.searchForItemsGroupBox.Size = new System.Drawing.Size(685, 208);
             this.searchForItemsGroupBox.TabIndex = 7;
             this.searchForItemsGroupBox.TabStop = false;
             this.searchForItemsGroupBox.Text = "SearchForItems";
@@ -168,7 +176,7 @@
             // 
             this.search.Location = new System.Drawing.Point(230, 24);
             this.search.Name = "search";
-            this.search.Size = new System.Drawing.Size(114, 20);
+            this.search.Size = new System.Drawing.Size(156, 20);
             this.search.TabIndex = 6;
             // 
             // label1
@@ -182,7 +190,7 @@
             // 
             // searchItemsButton
             // 
-            this.searchItemsButton.Location = new System.Drawing.Point(525, 21);
+            this.searchItemsButton.Location = new System.Drawing.Point(604, 23);
             this.searchItemsButton.Name = "searchItemsButton";
             this.searchItemsButton.Size = new System.Drawing.Size(75, 23);
             this.searchItemsButton.TabIndex = 7;
@@ -204,23 +212,45 @@
             this.searchByDropDown.FormattingEnabled = true;
             this.searchByDropDown.Location = new System.Drawing.Point(72, 23);
             this.searchByDropDown.Name = "searchByDropDown";
-            this.searchByDropDown.Size = new System.Drawing.Size(86, 21);
+            this.searchByDropDown.Size = new System.Drawing.Size(102, 21);
             this.searchByDropDown.TabIndex = 5;
             // 
             // searchItemsGridView
             // 
+            this.searchItemsGridView.AllowUserToAddRows = false;
+            this.searchItemsGridView.AllowUserToDeleteRows = false;
+            this.searchItemsGridView.AllowUserToResizeRows = false;
             this.searchItemsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.searchItemsGridView.Location = new System.Drawing.Point(6, 61);
             this.searchItemsGridView.Name = "searchItemsGridView";
-            this.searchItemsGridView.Size = new System.Drawing.Size(594, 109);
+            this.searchItemsGridView.Size = new System.Drawing.Size(673, 109);
             this.searchItemsGridView.TabIndex = 7;
             this.searchItemsGridView.TabStop = false;
+            // 
+            // rentOrReturnExecuteButton
+            // 
+            this.rentOrReturnExecuteButton.Location = new System.Drawing.Point(616, 461);
+            this.rentOrReturnExecuteButton.Name = "rentOrReturnExecuteButton";
+            this.rentOrReturnExecuteButton.Size = new System.Drawing.Size(75, 23);
+            this.rentOrReturnExecuteButton.TabIndex = 8;
+            this.rentOrReturnExecuteButton.UseVisualStyleBackColor = true;
+            // 
+            // addToSelectedItemsButton
+            // 
+            this.addToSelectedItemsButton.Location = new System.Drawing.Point(576, 176);
+            this.addToSelectedItemsButton.Name = "addToSelectedItemsButton";
+            this.addToSelectedItemsButton.Size = new System.Drawing.Size(103, 23);
+            this.addToSelectedItemsButton.TabIndex = 12;
+            this.addToSelectedItemsButton.Text = "Add To Selected";
+            this.addToSelectedItemsButton.UseVisualStyleBackColor = true;
+            this.addToSelectedItemsButton.Click += new System.EventHandler(this.addToSelectedItemsButton_Click);
             // 
             // MePOR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(630, 420);
+            this.ClientSize = new System.Drawing.Size(709, 496);
+            this.Controls.Add(this.rentOrReturnExecuteButton);
             this.Controls.Add(this.searchForItemsGroupBox);
             this.Controls.Add(this.selectedItemsGroupBox);
             this.Controls.Add(this.memberInformationGroupBox);
@@ -261,5 +291,7 @@
         private System.Windows.Forms.DataGridView searchItemsGridView;
         private System.Windows.Forms.TextBox search;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button rentOrReturnExecuteButton;
+        private System.Windows.Forms.Button addToSelectedItemsButton;
     }
 }
