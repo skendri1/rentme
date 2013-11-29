@@ -47,7 +47,8 @@ namespace MePOR
 
         private void StartMePOR(UserType userType)
         {
-            MePOR meporApplication = new MePOR(userType);
+            int id = dbControl.GetCurrentEmployeeID(this._username, this._password);
+            MePOR meporApplication = new MePOR(userType, id);
             this.Hide();
             meporApplication.ShowDialog(this);
             meporApplication.Dispose();

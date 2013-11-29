@@ -84,6 +84,39 @@ namespace MePOR.DataAccess
             return dt;
         }
 
+        public DataTable QueryEmployeeLoginID(string username, string password)
+        {
+            MySqlDataReader result = null;
+            DataTable dt = new DataTable();
+            string sql = "SELECT employeenum FROM EMPLOYEE WHERE username=@username AND password=@password";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+                cmd.Parameters.Add("@username", MySql.Data.MySqlClient.MySqlDbType.VarChar, 15);
+                cmd.Parameters.Add("@password", MySql.Data.MySqlClient.MySqlDbType.VarChar, 15);
+
+                cmd.Parameters["@username"].Value = username;
+                cmd.Parameters["@password"].Value = password;
+
+                try
+                {
+                    cmd.Connection = new MySqlConnection(connectionSettings);
+                    cmd.Connection.Open();
+                    result = cmd.ExecuteReader();
+                    dt.Load(result);
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+            }
+            return dt;
+        }
+
         public DataTable SearchCustomerByPhone(string phoneNumber)
         {
             MySqlDataReader result = null;
@@ -305,6 +338,61 @@ namespace MePOR.DataAccess
                     cmd.Connection.Close();
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns the rental id of the inserted rental
+        /// </summary>
+        /// <param name="memberID"></param>
+        /// <param name="employeeID"></param>
+        /// <returns></returns>
+        public int InsertRental(int memberID, int employeeID)
+        {
+            MySqlDataReader result = null;
+            DataTable dt = new DataTable();
+            string id = string.Empty;
+            string sql =
+                " INSERT INTO RENTAL (memberid, rentaldatetime, rentemployeenum, duedate) VALUES(@memberid, NOW(), @rentemployeenum, DATE_ADD(NOW(), INTERVAL 7 DAY))";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+                // Create the parameter objects as specific as possible.
+                cmd.Parameters.Add("@memberid", MySql.Data.MySqlClient.MySqlDbType.Int32, 11);
+                cmd.Parameters.Add("@rentemployeenum", MySql.Data.MySqlClient.MySqlDbType.Int32, 11);
+
+                // Add the parameter values. 
+                cmd.Parameters["@memberid"].Value = memberID;
+                cmd.Parameters["@rentemployeenum"].Value = employeeID;
+
+                try
+                {
+                    cmd.Connection = new MySqlConnection(connectionSettings);
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+
+                    string rentalIDSQL = "SELECT LAST_INSERT_ID;";
+
+                    cmd.Connection = new MySqlConnection(connectionSettings);
+                    result = cmd.ExecuteReader();
+                    dt.Load(result);
+
+                    string colName = dt.Columns[0].ColumnName;
+                    id = dt.Rows[0].ItemArray[0].ToString();
+
+                    
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+                
+                return Convert.ToInt32(id);
+            }
+        
         }
 
         private static void HandleSqlException(MySqlException ex)

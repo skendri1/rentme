@@ -28,17 +28,22 @@ namespace MePOR
 
         public readonly string[] ITEMSEARCHBY = { NUMBER, NAME, CATEGORY, STYLE };
 
+        private int employeeid;
+
         private List<string> selectedItemIDs; 
         
         DBAccessController dbcontrol;
 
-        public MePOR(UserType userType)
+        public MePOR(UserType userType, int employeeid)
         {
             InitializeComponent();
             dbcontrol = new DBAccessController();
             this.searchByDropDown.DataSource = ITEMSEARCHBY;
             this.rentOrReturnExecuteButton.Text = "Rent";
             this.selectedItemIDs = new List<string>();
+
+            this.employeeid = employeeid;
+            MessageBox.Show(this.employeeid.ToString(), "employee id");
         }
 
         private void registerBtn_Click(object sender, EventArgs e)
@@ -166,8 +171,10 @@ namespace MePOR
         private void rentOrReturnExecuteButton_Click(object sender, EventArgs e)
         {
             //If the rental radio button is selected, perform rental
-            if (this.rentalRadio.Checked)
+            if (this.rentalRadio.Checked && memberDataGridView.Rows.Count == 0 && selectedItemsDataGridView.Rows.Count > 0)
             {
+                int memberid = Convert.ToInt32(memberDataGridView[0, 0].Value);
+                
 
             }
             //If the return radio button is selected, perform return

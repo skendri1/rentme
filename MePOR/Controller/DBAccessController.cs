@@ -47,6 +47,14 @@ namespace MePOR.Controller
             return false;
         }
 
+        public int GetCurrentEmployeeID(string username, string password)
+        {
+            DataTable dt = this.db.QueryEmployeeLoginID(username, password);
+
+            int id = Convert.ToInt32(dt.Rows[0].ItemArray[0].ToString());
+            return id;
+        }
+
         public DataTable SearchItem(string searchCriteria, string search)
         {
             return this.db.SearchItem(searchCriteria, search);
@@ -60,6 +68,11 @@ namespace MePOR.Controller
         public DataTable GetRentalsInDateRange(DateTime startDate, DateTime endDate)
         {
             return this.db.GetRentalsInDateRange(startDate, endDate);
+        }
+
+        public int InsertRental(int memberid, int employeenum)
+        {
+            return this.db.InsertRental(memberid, employeenum);
         }
     }
 }
