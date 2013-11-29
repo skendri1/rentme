@@ -370,16 +370,22 @@ namespace MePOR.DataAccess
                     cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
 
-                    string rentalIDSQL = "SELECT LAST_INSERT_ID;";
+                    cmd.Connection.Close();
 
-                    cmd.Connection = new MySqlConnection(connectionSettings);
-                    result = cmd.ExecuteReader();
+                    string rentalIDSQL = "SELECT last_insert_id();";
+
+                    MySqlCommand rentalcmd = new MySqlCommand(rentalIDSQL);
+                    rentalcmd.Connection = new MySqlConnection(connectionSettings);
+                    rentalcmd.Connection.Open();
+                    result = rentalcmd.ExecuteReader();
                     dt.Load(result);
 
                     string colName = dt.Columns[0].ColumnName;
                     id = dt.Rows[0].ItemArray[0].ToString();
 
-                    
+                    rentalcmd.Connection.Close();
+
+
                 }
                 catch (MySqlException ex)
                 {
@@ -393,6 +399,65 @@ namespace MePOR.DataAccess
                 return Convert.ToInt32(id);
             }
         
+        }
+
+        public void InsertRentalItems(int rentalID, DataTable selectedItems)
+        {
+
+            string sql =
+                "INSERT INTO CONTAINS (rentalid, itemnumber, quantityrented) " +
+                "VALUES(@rentalid, @itemnumber, @quantityrented)";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+                try
+                {
+                
+                    foreach (DataRow currentRow in selectedItems.Rows)
+                    {
+                        int itemNumber = Convert.ToInt32(currentRow["itemnumber"].ToString());
+                        int qtyRented = Convert.ToInt32(currentRow["Quantity To Rent"]);
+
+                        cmd.Parameters.Add("@rentalid", MySql.Data.MySqlClient.MySqlDbType.Int32, 11);
+                        cmd.Parameters.Add("@itemnumnber", MySql.Data.MySqlClient.MySqlDbType.Int32, 11);
+                        cmd.Parameters.Add("@quantityrented", MySql.Data.MySqlClient.MySqlDbType.Int32, 11);
+
+                        cmd.Parameters["@rentalid"].Value = rentalID;
+                        cmd.Parameters["@itemnumber"].Value = itemNumber;
+                        cmd.Parameters["@quantityrented"].Value = qtyRented;
+
+                        cmd.Connection = new MySqlConnection(connectionSettings);
+                        cmd.Connection.Open();
+                        cmd.ExecuteNonQuery();
+
+                        cmd.Connection.Close();
+
+                        string updateSQL = "UPDATE ITEM SET itemsavailable=itemsavailable-@qty";
+                        MySqlCommand updateCmd = new MySqlCommand(updateSQL);
+
+                        updateCmd.Parameters.Add("@qty", MySql.Data.MySqlClient.MySqlDbType.Int32);
+                        updateCmd.Parameters["@qty"].Value = qtyRented;
+
+                        updateCmd.Connection = new MySqlConnection(connectionSettings);
+                        updateCmd.Connection.Open();
+                        updateCmd.ExecuteNonQuery();
+
+                        updateCmd.Connection.Close();
+
+                    }
+
+      
+                    
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+            }
         }
 
         private static void HandleSqlException(MySqlException ex)

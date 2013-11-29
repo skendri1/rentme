@@ -136,7 +136,7 @@ namespace MePOR
                     this.selectedItemsDataGridView.Columns.Add(col.Name, col.HeaderText);
                 }
 
-                this.selectedItemsDataGridView.Columns.Add("NumberToRent", "Quantity To Rent");
+                this.selectedItemsDataGridView.Columns.Add("Quantity To Rent", "Quantity To Rent");
             }
 
             
@@ -171,17 +171,54 @@ namespace MePOR
         private void rentOrReturnExecuteButton_Click(object sender, EventArgs e)
         {
             //If the rental radio button is selected, perform rental
-            if (this.rentalRadio.Checked && memberDataGridView.Rows.Count == 0 && selectedItemsDataGridView.Rows.Count > 0)
+            if (this.rentalRadio.Checked && memberDataGridView.Rows.Count == 1 && selectedItemsDataGridView.Rows.Count > 0)
             {
                 int memberid = Convert.ToInt32(memberDataGridView[0, 0].Value);
-                
+                DataTable selectedItems = this.GetSelectedItemsDataTable();
 
+                this.dbcontrol.InsertRental(memberid, this.employeeid, selectedItems);
+
+                this.clearGrids();
             }
             //If the return radio button is selected, perform return
             else
             {
                 
             }
+        }
+
+        private DataTable GetSelectedItemsDataTable()
+        {
+            DataTable dt = new DataTable();
+
+            if (this.selectedItemsDataGridView.Columns.Count > 0)
+            {
+                foreach (DataGridViewColumn col in this.selectedItemsDataGridView.Columns)
+                {
+                    DataColumn dc = new DataColumn(col.Name.ToString());
+                    dt.Columns.Add(dc);
+                }
+            }
+
+            if (this.selectedItemsDataGridView.Rows.Count > 0)
+            {
+                foreach (DataGridViewRow row in this.selectedItemsDataGridView.Rows)
+                {
+                    List<string> cells = new List<string>();
+
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        cells.Add(cell.Value.ToString());
+                    }
+
+                    dt.Rows.Add(cells);
+                    //this.selectedItemsDataGridView.Rows.Add(cells.ToArray());
+
+                }
+            }
+
+            return dt;
+
         }
 
         private void selectedItemsDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -216,6 +253,11 @@ namespace MePOR
 
         private void clearSelectedItemsButton_Click(object sender, EventArgs e)
         {
+            this.clearGrids();
+        }
+
+        private void clearGrids()
+        {
             if (this.selectedItemsDataGridView.Rows.Count > 0)
             {
                 this.selectedItemsDataGridView.Rows.Clear();
@@ -225,7 +267,6 @@ namespace MePOR
             {
                 this.selectedItemIDs.Clear();
             }
-            
         }
 
     }

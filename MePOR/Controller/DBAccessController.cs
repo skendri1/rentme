@@ -70,9 +70,11 @@ namespace MePOR.Controller
             return this.db.GetRentalsInDateRange(startDate, endDate);
         }
 
-        public int InsertRental(int memberid, int employeenum)
+        public void InsertRental(int memberid, int employeenum, DataTable selectedItemsDataTable)
         {
-            return this.db.InsertRental(memberid, employeenum);
+            int rentalID = this.db.InsertRental(memberid, employeenum);
+
+            this.db.InsertRentalItems(rentalID, selectedItemsDataTable);
         }
     }
 }
