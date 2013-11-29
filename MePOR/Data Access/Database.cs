@@ -419,7 +419,7 @@ namespace MePOR.DataAccess
                         int qtyRented = Convert.ToInt32(currentRow["Quantity To Rent"]);
 
                         cmd.Parameters.Add("@rentalid", MySql.Data.MySqlClient.MySqlDbType.Int32, 11);
-                        cmd.Parameters.Add("@itemnumnber", MySql.Data.MySqlClient.MySqlDbType.Int32, 11);
+                        cmd.Parameters.Add("@itemnumber", MySql.Data.MySqlClient.MySqlDbType.Int32, 11);
                         cmd.Parameters.Add("@quantityrented", MySql.Data.MySqlClient.MySqlDbType.Int32, 11);
 
                         cmd.Parameters["@rentalid"].Value = rentalID;

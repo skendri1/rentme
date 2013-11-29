@@ -211,7 +211,13 @@ namespace MePOR
                         cells.Add(cell.Value.ToString());
                     }
 
-                    dt.Rows.Add(cells);
+                    DataRow newRow = dt.NewRow();
+                    for (int i = 0; i < cells.Count; i++)
+                    {
+                        newRow[i] = cells[i];
+                    }
+
+                    dt.Rows.Add(newRow);
                     //this.selectedItemsDataGridView.Rows.Add(cells.ToArray());
 
                 }
