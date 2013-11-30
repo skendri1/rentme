@@ -431,16 +431,20 @@ namespace MePOR.DataAccess
                         cmd.ExecuteNonQuery();
 
                         cmd.Connection.Close();
+                        cmd.Parameters.Clear();
 
-                        string updateSQL = "UPDATE ITEM SET itemsavailable=itemsavailable-@qty";
+                        string updateSQL = "UPDATE ITEM SET itemsavailable=itemsavailable-@qty WHERE itemnumber=@itemnumber";
                         MySqlCommand updateCmd = new MySqlCommand(updateSQL);
 
                         updateCmd.Parameters.Add("@qty", MySql.Data.MySqlClient.MySqlDbType.Int32);
+                        updateCmd.Parameters.Add("@itemnumber", MySql.Data.MySqlClient.MySqlDbType.Int32);
                         updateCmd.Parameters["@qty"].Value = qtyRented;
+                        updateCmd.Parameters["@itemnumber"].Value = itemNumber;
 
                         updateCmd.Connection = new MySqlConnection(connectionSettings);
                         updateCmd.Connection.Open();
                         updateCmd.ExecuteNonQuery();
+                        updateCmd.Parameters.Clear();
 
                         updateCmd.Connection.Close();
 
