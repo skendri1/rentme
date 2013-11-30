@@ -18,6 +18,8 @@ namespace MePOR.DataAccess
         {
         }
 
+        #region QUERY LOGIN
+
         public DataTable QueryAdministratorLogin(string username, string password)
         {
             MySqlDataReader result = null;
@@ -117,6 +119,10 @@ namespace MePOR.DataAccess
             return dt;
         }
 
+        #endregion QUERY LOGIN
+
+        #region SEARCH CUSTOMER
+
         public DataTable SearchCustomerByPhone(string phoneNumber)
         {
             MySqlDataReader result = null;
@@ -146,6 +152,41 @@ namespace MePOR.DataAccess
             }
             return dt;
         }
+        
+        public DataTable SearchCustomerByName(string fname, string lname)
+        {
+            MySqlDataReader result = null;
+            DataTable dt = new DataTable();
+            string sql = "select memberid, fname, lname, phonenumber from MEMBER where fname=@fname && lname=@lname";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+                cmd.Parameters.Add("@fname", MySql.Data.MySqlClient.MySqlDbType.VarChar, 15);
+                cmd.Parameters.Add("@lname", MySql.Data.MySqlClient.MySqlDbType.VarChar, 15);
+
+                cmd.Parameters["@fname"].Value = fname;
+                cmd.Parameters["@lname"].Value = lname;
+
+                try
+                {
+                    cmd.Connection = new MySqlConnection(connectionSettings);
+                    cmd.Connection.Open();
+                    result = cmd.ExecuteReader();
+                    dt.Load(result);
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+            }
+            return dt;
+        }
+
+        #endregion SEARCH CUSTOMER
 
         public DataTable SearchItem(string searchCriteria, string search)
         {
@@ -181,39 +222,6 @@ namespace MePOR.DataAccess
                     cmd.Parameters.Add("@search", MySql.Data.MySqlClient.MySqlDbType.VarChar, 15);
                     cmd.Parameters["@search"].Value = search;
                 }
-
-                try
-                {
-                    cmd.Connection = new MySqlConnection(connectionSettings);
-                    cmd.Connection.Open();
-                    result = cmd.ExecuteReader();
-                    dt.Load(result);
-                }
-                catch (MySqlException ex)
-                {
-                    HandleSqlException(ex);
-                }
-                finally
-                {
-                    cmd.Connection.Close();
-                }
-            }
-            return dt;
-        }
-
-        public DataTable SearchCustomerByName(string fname, string lname)
-        {
-            MySqlDataReader result = null;
-            DataTable dt = new DataTable();
-            string sql = "select memberid, fname, lname, phonenumber from MEMBER where fname=@fname && lname=@lname";
-
-            using (MySqlCommand cmd = new MySqlCommand(sql))
-            {
-                cmd.Parameters.Add("@fname", MySql.Data.MySqlClient.MySqlDbType.VarChar, 15);
-                cmd.Parameters.Add("@lname", MySql.Data.MySqlClient.MySqlDbType.VarChar, 15);
-
-                cmd.Parameters["@fname"].Value = fname;
-                cmd.Parameters["@lname"].Value = lname;
 
                 try
                 {
@@ -340,6 +348,8 @@ namespace MePOR.DataAccess
             }
         }
 
+        #region INSERT RENTAL
+
         /// <summary>
         /// Returns the rental id of the inserted rental
         /// </summary>
@@ -463,6 +473,121 @@ namespace MePOR.DataAccess
                 }
             }
         }
+
+        #endregion INSERT RENTAL
+
+        #region RETURNS
+
+        public DataTable GetRentalIDsOfMember(int memberid)
+        {
+            MySqlDataReader result = null;
+            DataTable dt = new DataTable();
+
+            string sql = "SELECT rentalid FROM RENTAL WHERE memberid=@memberid";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+                try
+                {
+
+                    cmd.Parameters.Add("@memberid", MySql.Data.MySqlClient.MySqlDbType.Int32);
+                    cmd.Parameters["@memberid"].Value = memberid;
+
+                    cmd.Connection = new MySqlConnection(connectionSettings);
+                    cmd.Connection.Open();
+                    result = cmd.ExecuteReader();
+                    dt.Load(result);
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+            }
+
+            return dt;
+
+        }
+
+        public DataTable GetItemsRentedWithQty(DataTable rentalIds)
+        {
+            MySqlDataReader result = null;
+            DataTable dt = new DataTable();
+
+            string sql = "SELECT C.containsid, C.itemnumber, I.dailyrate, C.quantityrented, R.rentaldatetime, DATEDIFF(CURDATE(), R.rentaldatetime) AS 'Days Since Rental' " +
+                         "FROM CONTAINS C, ITEM I, RENTAL R " +
+                         "WHERE C.rentalid=@rentalid AND I.itemnumber=C.itemnumber AND R.rentalid=C.rentalid";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+                try
+                {
+                    foreach (DataRow currentRow in rentalIds.Rows)
+                    {
+                        int rentalid = Convert.ToInt32(currentRow["rentalid"]);
+
+                        cmd.Parameters.Add("@rentalid", MySql.Data.MySqlClient.MySqlDbType.Int32);
+                        cmd.Parameters["@rentalid"].Value = rentalid;
+
+                        cmd.Connection = new MySqlConnection(connectionSettings);
+                        cmd.Connection.Open();
+                        result = cmd.ExecuteReader();
+                        dt.Load(result);
+                        cmd.Parameters.Clear();
+
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                }
+                finally
+                {
+                    if (cmd.Connection != null)
+                    {
+                        cmd.Connection.Close();
+                    }
+                    
+                }
+            }
+
+            return dt;
+        }
+
+        public void ReturnItems(int employeeId, DataTable returningItems)
+        {
+            string sql = "INSERT INTO RETURNTRANSACTION (returnemployeenum, containsid, returndatetime, fee, quantityreturned)" +
+                         "VALUES(@returnemployeenum, @containsid, NOW(), @fee, @quantityreturned))";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+                try
+                {
+
+                    foreach (DataRow row in returningItems.Rows)
+                    {
+                        
+                    }
+
+                    cmd.Connection = new MySqlConnection(connectionSettings);
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+            }
+        }
+
+        #endregion RETURNS
 
         private static void HandleSqlException(MySqlException ex)
         {

@@ -37,17 +37,17 @@
             this.memberInformationGroupBox = new System.Windows.Forms.GroupBox();
             this.memberDataGridView = new System.Windows.Forms.DataGridView();
             this.selectedItemsGroupBox = new System.Windows.Forms.GroupBox();
+            this.clearSelectedItemsButton = new System.Windows.Forms.Button();
             this.selectedItemsDataGridView = new System.Windows.Forms.DataGridView();
             this.searchForItemsGroupBox = new System.Windows.Forms.GroupBox();
             this.addToSelectedItemsButton = new System.Windows.Forms.Button();
             this.search = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.searchLabel = new System.Windows.Forms.Label();
             this.searchItemsButton = new System.Windows.Forms.Button();
             this.searchByLabel = new System.Windows.Forms.Label();
             this.searchByDropDown = new System.Windows.Forms.ComboBox();
             this.searchItemsGridView = new System.Windows.Forms.DataGridView();
             this.rentOrReturnExecuteButton = new System.Windows.Forms.Button();
-            this.clearSelectedItemsButton = new System.Windows.Forms.Button();
             this.transactionTypeGroupBox.SuspendLayout();
             this.memberInformationGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.memberDataGridView)).BeginInit();
@@ -146,6 +146,16 @@
             this.selectedItemsGroupBox.TabStop = false;
             this.selectedItemsGroupBox.Text = "Selected Items";
             // 
+            // clearSelectedItemsButton
+            // 
+            this.clearSelectedItemsButton.Location = new System.Drawing.Point(604, 141);
+            this.clearSelectedItemsButton.Name = "clearSelectedItemsButton";
+            this.clearSelectedItemsButton.Size = new System.Drawing.Size(75, 23);
+            this.clearSelectedItemsButton.TabIndex = 8;
+            this.clearSelectedItemsButton.Text = "Clear";
+            this.clearSelectedItemsButton.UseVisualStyleBackColor = true;
+            this.clearSelectedItemsButton.Click += new System.EventHandler(this.clearSelectedItemsButton_Click);
+            // 
             // selectedItemsDataGridView
             // 
             this.selectedItemsDataGridView.AllowUserToAddRows = false;
@@ -163,7 +173,7 @@
             // 
             this.searchForItemsGroupBox.Controls.Add(this.addToSelectedItemsButton);
             this.searchForItemsGroupBox.Controls.Add(this.search);
-            this.searchForItemsGroupBox.Controls.Add(this.label1);
+            this.searchForItemsGroupBox.Controls.Add(this.searchLabel);
             this.searchForItemsGroupBox.Controls.Add(this.searchItemsButton);
             this.searchForItemsGroupBox.Controls.Add(this.searchByLabel);
             this.searchForItemsGroupBox.Controls.Add(this.searchByDropDown);
@@ -173,7 +183,7 @@
             this.searchForItemsGroupBox.Size = new System.Drawing.Size(685, 208);
             this.searchForItemsGroupBox.TabIndex = 7;
             this.searchForItemsGroupBox.TabStop = false;
-            this.searchForItemsGroupBox.Text = "SearchForItems";
+            this.searchForItemsGroupBox.Text = "Search For Items";
             // 
             // addToSelectedItemsButton
             // 
@@ -192,14 +202,14 @@
             this.search.Size = new System.Drawing.Size(156, 20);
             this.search.TabIndex = 6;
             // 
-            // label1
+            // searchLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(180, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Search:";
+            this.searchLabel.AutoSize = true;
+            this.searchLabel.Location = new System.Drawing.Point(180, 26);
+            this.searchLabel.Name = "searchLabel";
+            this.searchLabel.Size = new System.Drawing.Size(44, 13);
+            this.searchLabel.TabIndex = 11;
+            this.searchLabel.Text = "Search:";
             // 
             // searchItemsButton
             // 
@@ -251,16 +261,6 @@
             this.rentOrReturnExecuteButton.UseVisualStyleBackColor = true;
             this.rentOrReturnExecuteButton.Click += new System.EventHandler(this.rentOrReturnExecuteButton_Click);
             // 
-            // clearSelectedItemsButton
-            // 
-            this.clearSelectedItemsButton.Location = new System.Drawing.Point(604, 141);
-            this.clearSelectedItemsButton.Name = "clearSelectedItemsButton";
-            this.clearSelectedItemsButton.Size = new System.Drawing.Size(75, 23);
-            this.clearSelectedItemsButton.TabIndex = 8;
-            this.clearSelectedItemsButton.Text = "Clear";
-            this.clearSelectedItemsButton.UseVisualStyleBackColor = true;
-            this.clearSelectedItemsButton.Click += new System.EventHandler(this.clearSelectedItemsButton_Click);
-            // 
             // MePOR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -306,7 +306,7 @@
         private System.Windows.Forms.ComboBox searchByDropDown;
         private System.Windows.Forms.DataGridView searchItemsGridView;
         private System.Windows.Forms.TextBox search;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label searchLabel;
         private System.Windows.Forms.Button rentOrReturnExecuteButton;
         private System.Windows.Forms.Button addToSelectedItemsButton;
         private System.Windows.Forms.Button clearSelectedItemsButton;

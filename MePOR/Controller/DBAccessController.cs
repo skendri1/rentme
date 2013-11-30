@@ -16,6 +16,26 @@ namespace MePOR.Controller
         public DBAccessController(){
             db = new Database();
         }
+        
+        public int GetCurrentEmployeeID(string username, string password)
+        {
+            DataTable dt = this.db.QueryEmployeeLoginID(username, password);
+
+            int id = Convert.ToInt32(dt.Rows[0].ItemArray[0].ToString());
+            return id;
+        }
+
+        public DataTable SearchItem(string searchCriteria, string search)
+        {
+            return this.db.SearchItem(searchCriteria, search);
+        }
+
+        public DataTable PerformAdvancedQuery(string query)
+        {
+            return this.db.PerformAdvancedQuery(query);
+        }
+
+        #region SEARCH CUSTOMER
 
         public DataTable SearchCustomerByName(string fname, string lname)
         {
@@ -26,6 +46,10 @@ namespace MePOR.Controller
         {
             return this.db.SearchCustomerByPhone(phoneNumber);
         }
+
+        #endregion SEARCH CUSTOMER
+
+        #region AUTHENTICATE LOGINS
 
         public Boolean AuthenticateEmployee(string username, string password)
         {
@@ -47,23 +71,9 @@ namespace MePOR.Controller
             return false;
         }
 
-        public int GetCurrentEmployeeID(string username, string password)
-        {
-            DataTable dt = this.db.QueryEmployeeLoginID(username, password);
+        #endregion AUTHENTICATE LOGINS
 
-            int id = Convert.ToInt32(dt.Rows[0].ItemArray[0].ToString());
-            return id;
-        }
-
-        public DataTable SearchItem(string searchCriteria, string search)
-        {
-            return this.db.SearchItem(searchCriteria, search);
-        }
-
-        public DataTable PerformAdvancedQuery(string query)
-        {
-            return this.db.PerformAdvancedQuery(query);
-        }
+        #region RENTALS
 
         public DataTable GetRentalsInDateRange(DateTime startDate, DateTime endDate)
         {
@@ -76,5 +86,25 @@ namespace MePOR.Controller
 
             this.db.InsertRentalItems(rentalID, selectedItemsDataTable);
         }
+
+        #endregion RENTALS
+
+        #region RETURNS
+
+        public DataTable GetMembersRentalItems(int memberid)
+        {
+            DataTable rentalIds = this.db.GetRentalIDsOfMember(memberid);
+
+            DataTable itemsRentedAndQty = this.db.GetItemsRentedWithQty(rentalIds);
+
+            return itemsRentedAndQty;
+        }
+
+        public void ReturnItems(int employeeid, DataTable returningItems)
+        {
+            
+        }
+
+        #endregion RETURNS
     }
 }

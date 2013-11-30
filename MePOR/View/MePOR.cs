@@ -43,149 +43,9 @@ namespace MePOR
             this.selectedItemIDs = new List<string>();
 
             this.employeeid = employeeid;
-            MessageBox.Show(this.employeeid.ToString(), "employee id");
         }
 
-        private void registerBtn_Click(object sender, EventArgs e)
-        {
-            using (var form = new RegistrationForm())
-            {
-                var result = form.ShowDialog();
-                this.Show();
-
-                ArrayList memberInfo = form.NewMemberInformation;
-
-                if (memberInfo.Count != 0)
-                {
-                    string memberInfoString ="SSN: " + memberInfo[0] + "\nFirst Name: " + memberInfo[1] + "\nMiddle Initial: " + memberInfo[2] + "\nLast Name: " + memberInfo[3] 
-                        + "\nPhone: " + memberInfo[4] + "\nStreet: " + memberInfo[5] + "\nCity: " + memberInfo[6] + "\nState: " + memberInfo[7]
-                        + "\nZip: " + memberInfo[8];
-                
-                    MessageBox.Show(memberInfoString, "Confirmation");
-                }                
-            }
-        }
-
-        private void memberSearchButton_Click(object sender, EventArgs e)
-        {
-            using (var form = new MemberSearch())
-            {
-                var result = form.ShowDialog();
-                this.Show();
-
-                DataTable selectedMember = form.result;
-
-                if (selectedMember != null)
-                {
-                    this.memberDataGridView.DataSource = selectedMember;
-                }
-            }
-
-            //var form = new MemberSearch();
-            //form.ShowDialog();
-
-           
-        }
-
-        private void searchItemsButton_Click(object sender, EventArgs e)
-        {
-            DataTable dt = null;
-            string search = this.search.Text;
-
-            switch(this.searchByDropDown.Text)
-            {
-                case NUMBER:
-                    dt = dbcontrol.SearchItem(NUMBER, search);
-                    break;
-                case NAME:
-                    dt = dbcontrol.SearchItem(NAME, search);
-                    break;
-                case CATEGORY:
-                    dt = dbcontrol.SearchItem(CATEGORY, search);
-                    break;
-                case STYLE:
-                    dt = dbcontrol.SearchItem(STYLE, search);
-                    break;
-            }
-
-            this.searchItemsGridView.DataSource = dt;
-        }
-
-        private void rentalRadio_CheckedChanged(object sender, EventArgs e)
-        {
-            this.rentOrReturnExecuteButton.Text = "Rent";
-        }
-
-        private void returnRadio_CheckedChanged(object sender, EventArgs e)
-        {
-            this.rentOrReturnExecuteButton.Text = "Return";
-        }
-
-        private void addToSelectedItemsButton_Click(object sender, EventArgs e)
-        {
-
-            if (this.searchItemsGridView.SelectedRows.Count <= 0)
-            {
-                return;
-            }
-
-            if (this.selectedItemsDataGridView.Columns.Count == 0)
-            {
-                foreach (DataGridViewColumn col in this.searchItemsGridView.Columns)
-                {
-                    this.selectedItemsDataGridView.Columns.Add(col.Name, col.HeaderText);
-                }
-
-                this.selectedItemsDataGridView.Columns.Add("Quantity To Rent", "Quantity To Rent");
-            }
-
-            
-            List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
-            foreach (DataGridViewRow selectedRow in this.searchItemsGridView.SelectedRows)
-            {
-                string selectedRowItemID = selectedRow.Cells[0].Value.ToString();
-                if (!this.selectedItemIDs.Contains(selectedRowItemID))
-                {
-
-                    List<string> cells = new List<string>();
-
-                    foreach (DataGridViewCell cell in selectedRow.Cells)
-                    {
-                        cells.Add(cell.Value.ToString());
-                    }
-
-                    cells.Add("1");
-
-                    this.selectedItemsDataGridView.Rows.Add(cells.ToArray());
-                    this.selectedItemIDs.Add(selectedRowItemID);
-                    rowsToRemove.Add(selectedRow);
-                }
-            }
-
-            foreach (DataGridViewRow row in rowsToRemove)
-            {
-                this.searchItemsGridView.Rows.Remove(row);
-            }
-        }
-
-        private void rentOrReturnExecuteButton_Click(object sender, EventArgs e)
-        {
-            //If the rental radio button is selected, perform rental
-            if (this.rentalRadio.Checked && memberDataGridView.Rows.Count == 1 && selectedItemsDataGridView.Rows.Count > 0)
-            {
-                int memberid = Convert.ToInt32(memberDataGridView[0, 0].Value);
-                DataTable selectedItems = this.GetSelectedItemsDataTable();
-
-                this.dbcontrol.InsertRental(memberid, this.employeeid, selectedItems);
-
-                this.clearGrids();
-            }
-            //If the return radio button is selected, perform return
-            else
-            {
-                
-            }
-        }
+        #region HELPER METHODS
 
         private DataTable GetSelectedItemsDataTable()
         {
@@ -226,7 +86,234 @@ namespace MePOR
             return dt;
 
         }
+        
+        private void clearGrids()
+        {
+            if (this.selectedItemsDataGridView.Rows.Count > 0)
+            {
+                this.selectedItemsDataGridView.Rows.Clear();
+                this.selectedItemsDataGridView.Columns.Clear();
+                this.selectedItemsDataGridView.DataSource = null;
+            }
+            
+            if (this.selectedItemIDs.Count > 0)
+            {
+                this.selectedItemIDs.Clear();
+                this.selectedItemsDataGridView.DataSource = null;
+            }
 
+            this.selectedItemsDataGridView.DataSource = null;
+
+            this.searchItemsGridView.DataSource = null;
+            
+            this.memberDataGridView.DataSource = null;
+                        
+        }
+
+        #endregion HELPER METHODS     
+        
+        #region BUTTON LISTENERS
+
+        private void registerBtn_Click(object sender, EventArgs e)
+        {
+            using (var form = new RegistrationForm())
+            {
+                var result = form.ShowDialog();
+                this.Show();
+
+                ArrayList memberInfo = form.NewMemberInformation;
+
+                if (memberInfo.Count != 0)
+                {
+                    string memberInfoString ="SSN: " + memberInfo[0] + "\nFirst Name: " + memberInfo[1] + "\nMiddle Initial: " + memberInfo[2] + "\nLast Name: " + memberInfo[3] 
+                        + "\nPhone: " + memberInfo[4] + "\nStreet: " + memberInfo[5] + "\nCity: " + memberInfo[6] + "\nState: " + memberInfo[7]
+                        + "\nZip: " + memberInfo[8];
+                
+                    MessageBox.Show(memberInfoString, "Confirmation");
+                }                
+            }
+        }
+
+        private void memberSearchButton_Click(object sender, EventArgs e)
+        {
+            using (var form = new MemberSearch())
+            {
+                var result = form.ShowDialog();
+                this.Show();
+
+                DataTable selectedMember = form.result;
+
+                if (selectedMember != null)
+                {
+                    this.memberDataGridView.DataSource = selectedMember;
+                }
+            }
+
+            //var form = new MemberSearch();
+            //form.ShowDialog();
+
+            if (this.returnRadio.Checked && this.memberDataGridView.Rows.Count == 1)
+            {
+                int memberid = Convert.ToInt32(memberDataGridView[0, 0].Value);
+                DataTable dt = this.dbcontrol.GetMembersRentalItems(memberid);
+                this.searchItemsGridView.DataSource = dt;
+
+                if (dt.Rows.Count <= 0)
+                {
+                    MessageBox.Show("The selected member does not have any rentals.", "No Rentals");
+                    this.clearGrids();
+                }
+
+            }
+           
+        }
+
+        private void searchItemsButton_Click(object sender, EventArgs e)
+        {
+            DataTable dt = null;
+            string search = this.search.Text;
+
+            switch(this.searchByDropDown.Text)
+            {
+                case NUMBER:
+                    dt = dbcontrol.SearchItem(NUMBER, search);
+                    break;
+                case NAME:
+                    dt = dbcontrol.SearchItem(NAME, search);
+                    break;
+                case CATEGORY:
+                    dt = dbcontrol.SearchItem(CATEGORY, search);
+                    break;
+                case STYLE:
+                    dt = dbcontrol.SearchItem(STYLE, search);
+                    break;
+            }
+
+            this.searchItemsGridView.DataSource = dt;
+        }
+
+        private void clearSelectedItemsButton_Click(object sender, EventArgs e)
+        {
+            this.clearGrids();
+        }
+        
+        private void addToSelectedItemsButton_Click(object sender, EventArgs e)
+        {
+
+            if (this.searchItemsGridView.SelectedRows.Count <= 0)
+            {
+                return;
+            }
+
+            if (this.selectedItemsDataGridView.Columns.Count == 0)
+            {
+                foreach (DataGridViewColumn col in this.searchItemsGridView.Columns)
+                {
+                    this.selectedItemsDataGridView.Columns.Add(col.Name, col.HeaderText);
+                }
+
+                if (rentalRadio.Checked)
+                {
+                    this.selectedItemsDataGridView.Columns.Add("Quantity To Rent", "Quantity To Rent");
+                }
+                else
+                {
+                    this.selectedItemsDataGridView.Columns.Add("Quantity To Return", "Quantity To Return");
+                }
+                
+            }
+
+            
+            List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
+            foreach (DataGridViewRow selectedRow in this.searchItemsGridView.SelectedRows)
+            {
+                string selectedRowID = selectedRow.Cells[0].Value.ToString();
+                if (!this.selectedItemIDs.Contains(selectedRowID))
+                {
+
+                    List<string> cells = new List<string>();
+
+                    foreach (DataGridViewCell cell in selectedRow.Cells)
+                    {
+                        cells.Add(cell.Value.ToString());
+                    }
+
+                    cells.Add("1");
+
+                    this.selectedItemsDataGridView.Rows.Add(cells.ToArray());
+                    this.selectedItemIDs.Add(selectedRowID);
+                    rowsToRemove.Add(selectedRow);
+                }
+            }
+
+            foreach (DataGridViewRow row in rowsToRemove)
+            {
+                this.searchItemsGridView.Rows.Remove(row);
+            }
+        }
+
+        private void rentOrReturnExecuteButton_Click(object sender, EventArgs e)
+        {
+            //If the rental radio button is selected, perform rental
+            if (this.rentalRadio.Checked && memberDataGridView.Rows.Count == 1 && selectedItemsDataGridView.Rows.Count > 0)
+            {
+                int memberid = Convert.ToInt32(memberDataGridView[0, 0].Value);
+                DataTable selectedItems = this.GetSelectedItemsDataTable();
+
+                this.dbcontrol.InsertRental(memberid, this.employeeid, selectedItems);
+
+                this.clearGrids();
+            }
+            //If the return radio button is selected, perform return
+            else
+            {
+                
+            }
+        }
+
+        #endregion BUTTON LISTENERS
+
+        #region RADIO BUTTONS
+
+        private void rentalRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            this.rentOrReturnExecuteButton.Text = "Rent";
+            this.searchForItemsGroupBox.Text = "Search For Items";
+
+            this.clearGrids();
+
+            this.searchByLabel.Visible = true;
+            this.searchByDropDown.Visible = true;
+
+            this.searchLabel.Visible = true;
+            this.search.Visible = true;
+
+            this.searchItemsButton.Visible = true;
+            this.searchItemsButton.Enabled = true;
+
+        }
+
+        private void returnRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            this.rentOrReturnExecuteButton.Text = "Return";
+            this.searchForItemsGroupBox.Text = "Items Rented By Member";
+
+            this.clearGrids();
+
+            this.searchByLabel.Visible = false;
+            this.searchByDropDown.Visible = false;
+
+            this.searchLabel.Visible = false;
+            this.search.Visible = false;
+
+            this.searchItemsButton.Visible = false;
+            this.searchItemsButton.Enabled = false;
+
+
+        }
+
+        #endregion RADIO BUTTONS
+        
         private void selectedItemsDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex != this.selectedItemsDataGridView.Columns.Count - 1)
@@ -256,24 +343,5 @@ namespace MePOR
             }
 
         }
-
-        private void clearSelectedItemsButton_Click(object sender, EventArgs e)
-        {
-            this.clearGrids();
-        }
-
-        private void clearGrids()
-        {
-            if (this.selectedItemsDataGridView.Rows.Count > 0)
-            {
-                this.selectedItemsDataGridView.Rows.Clear();
-            }
-            
-            if (this.selectedItemIDs.Count > 0)
-            {
-                this.selectedItemIDs.Clear();
-            }
-        }
-
     }
 }
