@@ -100,9 +100,11 @@ namespace MePOR.Controller
             return itemsRentedAndQty;
         }
 
-        public void ReturnItems(int employeeid, DataTable returningItems)
+        public decimal ReturnItems(int employeeid, DataTable returningItems)
         {
-            this.db.ReturnItems(employeeid, returningItems);
+            decimal totalFee = this.db.ReturnItems(employeeid, returningItems);
+
+            return totalFee;
         }
 
         #endregion RETURNS

@@ -265,7 +265,13 @@ namespace MePOR
             //If the return radio button is selected, perform return
             else
             {
+
+                decimal totalFee = this.dbcontrol.ReturnItems(this.employeeid, this.GetSelectedItemsDataTable());
+
+                MessageBox.Show("Total: $" + totalFee, "Checkout", MessageBoxButtons.OK);
                 
+                this.clearGrids();
+
             }
         }
 

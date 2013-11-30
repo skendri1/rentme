@@ -557,10 +557,12 @@ namespace MePOR.DataAccess
             return dt;
         }
 
-        public void ReturnItems(int employeeId, DataTable returningItems)
+        public decimal ReturnItems(int employeeId, DataTable returningItems)
         {
-            string sql = "INSERT INTO RETURNTRANSACTION (returnemployeenum, containsid, returndatetime, fee, quantityreturned)" +
-                         "VALUES(@returnemployeenum, @containsid, NOW(), @fee, @quantityreturned))";
+            string sql = "INSERT INTO RETURNTRANSACTION (returnemployeenum, containsid, returndatetime, fee, quantityreturned) " +
+                         "VALUES (@returnemployeenum, @containsid, NOW(), @fee, @quantityreturned)";
+
+            decimal totalFee = decimal.Zero;
 
             using (MySqlCommand cmd = new MySqlCommand(sql))
             {
@@ -569,12 +571,55 @@ namespace MePOR.DataAccess
 
                     foreach (DataRow row in returningItems.Rows)
                     {
+                        cmd.Parameters.Add("@returnemployeenum", MySql.Data.MySqlClient.MySqlDbType.Int32);
+                        cmd.Parameters.Add("@containsid", MySql.Data.MySqlClient.MySqlDbType.Int32);
+                        cmd.Parameters.Add("@fee", MySql.Data.MySqlClient.MySqlDbType.Decimal);
+                        cmd.Parameters.Add("@quantityreturned", MySql.Data.MySqlClient.MySqlDbType.Int32);
+
+                        cmd.Parameters["@returnemployeenum"].Value = employeeId;
+                        cmd.Parameters["@containsid"].Value = Convert.ToInt32(row["containsid"].ToString());
+
+                        int daysSinceRental = Convert.ToInt32(row["Days Since Rental"].ToString());
+
+                        if (daysSinceRental <= 0)
+                        {
+                            daysSinceRental = 1;
+                        }
+
+                        decimal fee = (Convert.ToDecimal(row["dailyrate"].ToString())*
+                                      Convert.ToInt32(row["Quantity To Return"]) ) * daysSinceRental ;
+
+                        totalFee += fee;
+
+                        cmd.Parameters["@fee"].Value = fee;
+                        cmd.Parameters["@quantityreturned"].Value = Convert.ToInt32(row["Quantity To Return"]);
                         
+                        cmd.Connection = new MySqlConnection(connectionSettings);
+                        cmd.Connection.Open();
+                        cmd.ExecuteNonQuery();
+
+                        cmd.Connection.Close();
+                        cmd.Parameters.Clear();
+
+                        string updateSQL = "UPDATE ITEM SET itemsavailable=itemsavailable+@qty WHERE itemnumber=@itemnumber";
+                        MySqlCommand updateCmd = new MySqlCommand(updateSQL);
+
+                        updateCmd.Parameters.Add("@qty", MySql.Data.MySqlClient.MySqlDbType.Int32);
+                        updateCmd.Parameters.Add("@itemnumber", MySql.Data.MySqlClient.MySqlDbType.Int32);
+
+                        updateCmd.Parameters["@qty"].Value = Convert.ToInt32(row["Quantity To Return"]);
+                        updateCmd.Parameters["@itemnumber"].Value = Convert.ToInt32(row["itemnumber"]);
+
+                        updateCmd.Connection = new MySqlConnection(connectionSettings);
+                        updateCmd.Connection.Open();
+                        updateCmd.ExecuteNonQuery();
+
+                        updateCmd.Connection.Close();
+                        updateCmd.Parameters.Clear();
+
                     }
 
-                    cmd.Connection = new MySqlConnection(connectionSettings);
-                    cmd.Connection.Open();
-                    cmd.ExecuteNonQuery();
+                    
                 }
                 catch (MySqlException ex)
                 {
@@ -584,7 +629,10 @@ namespace MePOR.DataAccess
                 {
                     cmd.Connection.Close();
                 }
+
             }
+
+            return totalFee;
         }
 
         #endregion RETURNS
