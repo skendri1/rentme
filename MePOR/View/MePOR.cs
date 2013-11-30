@@ -149,8 +149,6 @@ namespace MePOR
                 }
             }
 
-            //var form = new MemberSearch();
-            //form.ShowDialog();
 
             if (this.returnRadio.Checked && this.memberDataGridView.Rows.Count == 1)
             {
@@ -321,17 +319,25 @@ namespace MePOR
                 return;
             }
 
-            string qtyToRentString = this.selectedItemsDataGridView[e.ColumnIndex, e.RowIndex].Value.ToString();
-            string availableToRentString =
-                this.selectedItemsDataGridView[e.ColumnIndex - 1, e.RowIndex].Value.ToString();
+            string qtyString = this.selectedItemsDataGridView[e.ColumnIndex, e.RowIndex].Value.ToString();
+            string availableString = string.Empty;
 
-            int available = Convert.ToInt32(availableToRentString);
-            int qtyToRent = Convert.ToInt32(qtyToRentString);
-
-            if (qtyToRent > available || qtyToRent <= 0)
+            if (rentalRadio.Checked)
             {
-                string invalidQty = "Quantity to rent is invalid, please choose a number from 1 to " +
-                                    availableToRentString;
+                availableString = this.selectedItemsDataGridView[e.ColumnIndex - 1, e.RowIndex].Value.ToString();
+            }
+            else
+            {
+                availableString = this.selectedItemsDataGridView["quantityrented", e.RowIndex].Value.ToString();
+            }
+
+            int available = Convert.ToInt32(availableString);
+            int qty = Convert.ToInt32(qtyString);
+
+            if (qty > available || qty <= 0)
+            {
+                string invalidQty = "Quantity to rent/return is invalid, please choose a number from 1 to " +
+                                    availableString;
 
                 MessageBox.Show(invalidQty, "Invalid Number");
 

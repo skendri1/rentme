@@ -102,7 +102,7 @@ namespace MePOR.Controller
 
         public void ReturnItems(int employeeid, DataTable returningItems)
         {
-            
+            this.db.ReturnItems(employeeid, returningItems);
         }
 
         #endregion RETURNS
