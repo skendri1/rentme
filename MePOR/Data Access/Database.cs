@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Collections;
 using System.Data;
@@ -725,12 +726,17 @@ namespace MePOR.DataAccess
             switch (ex.Number)
             {
                 case 0:
-                    Console.WriteLine("Cannot connect to server.  Contact administrator");
+                    ShowErrorMessage("Cannot Connect To Server");
                     break;
                 default:
-                    Console.WriteLine(ex.Message + "!\nPlease try again!");
+                    ShowErrorMessage(ex.Message);
                     break;
             }
+        }
+
+        private static void ShowErrorMessage(string message)
+        {
+            MessageBox.Show(message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
