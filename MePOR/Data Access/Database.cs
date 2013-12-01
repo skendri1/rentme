@@ -512,14 +512,17 @@ namespace MePOR.DataAccess
 
         }
 
-        public DataTable GetItemsRentedWithQty(DataTable rentalIds)
+        public DataTable GetItemsAllRented(DataTable rentalIds)
         {
             MySqlDataReader result = null;
             DataTable dt = new DataTable();
 
-            string sql = "SELECT C.containsid, C.itemnumber, I.dailyrate, C.quantityrented, R.rentaldatetime, DATEDIFF(CURDATE(), R.rentaldatetime) AS 'Days Since Rental' " +
-                         "FROM CONTAINS C, ITEM I, RENTAL R " +
-                         "WHERE C.rentalid=@rentalid AND I.itemnumber=C.itemnumber AND R.rentalid=C.rentalid";
+            string sql =
+                "SELECT C.containsid, C.itemnumber, I.dailyrate, C.quantityrented, R.rentaldatetime, DATEDIFF(CURDATE(), R.rentaldatetime) AS 'Days Since Rental' " +
+                "FROM CONTAINS C, ITEM I, RENTAL R " +
+                "WHERE C.rentalid=@rentalid " +
+                "AND I.itemnumber=C.itemnumber " +
+                "AND R.rentalid=C.rentalid";
 
             using (MySqlCommand cmd = new MySqlCommand(sql))
             {
@@ -555,6 +558,86 @@ namespace MePOR.DataAccess
             }
 
             return dt;
+        }
+
+        public DataTable GetRentalsNotReturned(DataTable allItemsRented)
+        {
+            MySqlDataReader result = null;
+            DataTable dt = new DataTable();
+
+            string sql = "SELECT SUM(quantityreturned) " +
+                         "FROM RETURNTRANSACTION " +
+                         "WHERE containsid=@containsid";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+                try
+                {
+
+                    List<int> rowsToRemove = new List<int>();
+
+                    foreach (DataRow currentRow in allItemsRented.Rows)
+                    {
+                        int qtyRented = Convert.ToInt32(currentRow["quantityrented"].ToString());
+
+                        int containsid = Convert.ToInt32(currentRow["containsid"].ToString());
+
+                        cmd.Parameters.Add("@containsid", MySql.Data.MySqlClient.MySqlDbType.Int32);
+                        cmd.Parameters["@containsid"].Value = containsid;
+
+                        cmd.Connection = new MySqlConnection(connectionSettings);
+                        cmd.Connection.Open();
+                        result = cmd.ExecuteReader();
+                        dt.Load(result);
+                        cmd.Parameters.Clear();
+                        
+
+                        int totalReturned = 0;
+                        string totalReturnedString = dt.Rows[0].ItemArray[0].ToString();
+                        if (!string.IsNullOrEmpty(totalReturnedString))
+                        {
+                            DataRow sumReturnedRow = dt.Rows[0];
+                            totalReturned = Convert.ToInt32(sumReturnedRow[0].ToString());
+                        }
+
+                        if (totalReturned < qtyRented)
+                        {
+                            currentRow["quantityrented"] = qtyRented - totalReturned;
+                        }
+                        else if ( totalReturned == qtyRented)
+                        {
+                            int index = allItemsRented.Rows.IndexOf(currentRow);
+                            rowsToRemove.Add(index);
+                        }
+                        
+                        dt.Clear();
+                        dt = new DataTable();
+
+                    }
+
+                    foreach (int index in rowsToRemove)
+                    {
+                        allItemsRented.Rows[index].Delete();
+                    }
+
+                    allItemsRented.AcceptChanges();
+
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                }
+                finally
+                {
+                    if (cmd.Connection != null)
+                    {
+                        cmd.Connection.Close();
+                    }
+
+                }
+            }
+
+            return allItemsRented;
         }
 
         public decimal ReturnItems(int employeeId, DataTable returningItems)

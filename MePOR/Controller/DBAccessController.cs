@@ -95,9 +95,11 @@ namespace MePOR.Controller
         {
             DataTable rentalIds = this.db.GetRentalIDsOfMember(memberid);
 
-            DataTable itemsRentedAndQty = this.db.GetItemsRentedWithQty(rentalIds);
+            DataTable allItemsRented = this.db.GetItemsAllRented(rentalIds);
 
-            return itemsRentedAndQty;
+            DataTable allRentalsNotReturned = this.db.GetRentalsNotReturned(allItemsRented);
+
+            return allRentalsNotReturned;
         }
 
         public decimal ReturnItems(int employeeid, DataTable returningItems)
