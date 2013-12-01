@@ -27,6 +27,11 @@ namespace MePOR
 
             Database db = new Database();
 
+            if (!dbControl.CanConnectToDB())
+            {
+                return;
+            }
+
             if (dbControl.AuthenticateEmployee(this._username, this._password))
             {
                 this.StartMePOR(UserType.Employee);

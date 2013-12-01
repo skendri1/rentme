@@ -19,6 +19,34 @@ namespace MePOR.DataAccess
         {
         }
 
+        public bool CanConnectToServer()
+        {
+            string sql = "SELECT fname FROM EMPLOYEE";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+
+                try
+                {
+                    cmd.Connection = new MySqlConnection(connectionSettings);
+                    cmd.Connection.Open();
+                    cmd.ExecuteReader();
+
+                    return true;
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                    return false;
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+            }
+
+        }
+
         #region QUERY LOGIN
 
         public DataTable QueryAdministratorLogin(string username, string password)

@@ -35,6 +35,11 @@ namespace MePOR.Controller
             return this.db.PerformAdvancedQuery(query);
         }
 
+        public bool CanConnectToDB()
+        {
+            return this.db.CanConnectToServer();
+        }
+
         #region SEARCH CUSTOMER
 
         public DataTable SearchCustomerByName(string fname, string lname)
