@@ -206,7 +206,15 @@ namespace MePOR
             switch(this.searchByDropDown.Text)
             {
                 case NUMBER:
-                    dt = dbcontrol.SearchItem(NUMBER, search);
+                    int temp;
+                    if (int.TryParse(search, out temp))
+                    {
+                        dt = dbcontrol.SearchItem(NUMBER, search);
+                    }
+                    else
+                    {
+                        this.ShowErrorMessage("Search Criteria Must Be A Number");
+                    }
                     break;
                 case NAME:
                     dt = dbcontrol.SearchItem(NAME, search);
@@ -388,6 +396,11 @@ namespace MePOR
                 this.selectedItemsDataGridView[e.ColumnIndex, e.RowIndex].ErrorText = string.Empty;
             }
 
+        }
+
+        private void ShowErrorMessage(string message)
+        {
+            MessageBox.Show(message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
