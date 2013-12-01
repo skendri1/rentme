@@ -53,7 +53,7 @@ namespace MePOR.View
             this.SetNewMemberInformationArrayList();
             NewMemberRegistrationDatabaseController.InsertNewMemberIntoDatabase(this.firstNameTextBox.Text, 
                 this.middleInitialTextBox.Text, this.lastNameTextBox.Text, this.ssnTextBox.Text, this.phoneNumberTextBox.Text, 
-                this.streetTextBox.Text, this.cityTextBox.Text, this.stateTextBox.Text, this.zipCodeTextBox.Text);
+                this.streetTextBox.Text, this.cityTextBox.Text, this.stateComboBox.Text, this.zipCodeTextBox.Text);
             this.Close();
         }
 
@@ -133,7 +133,7 @@ namespace MePOR.View
             }
 
             //Validate State
-            if (!NewMemberValidationController.ValidateName(this.stateTextBox.Text))
+            if (!NewMemberValidationController.ValidateName(this.stateComboBox.Text))
             {
                 this.ErrorInValidationLabels.Add(this.stateLabel);
             }
@@ -178,7 +178,7 @@ namespace MePOR.View
             this.NewMemberInformation.Add(this.phoneNumberTextBox.Text);
             this.NewMemberInformation.Add(this.streetTextBox.Text);
             this.NewMemberInformation.Add(this.cityTextBox.Text);
-            this.NewMemberInformation.Add(this.stateTextBox.Text);
+            this.NewMemberInformation.Add(this.stateComboBox.Text);
             this.NewMemberInformation.Add(this.zipCodeTextBox.Text);
         }
 

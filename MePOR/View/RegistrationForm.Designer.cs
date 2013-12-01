@@ -42,7 +42,6 @@
             this.streetLabel = new System.Windows.Forms.Label();
             this.memberRegistrationLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.zipCodeTextBox = new System.Windows.Forms.TextBox();
-            this.stateTextBox = new System.Windows.Forms.TextBox();
             this.cityTextBox = new System.Windows.Forms.TextBox();
             this.streetTextBox = new System.Windows.Forms.TextBox();
             this.phoneNumberTextBox = new System.Windows.Forms.TextBox();
@@ -50,6 +49,7 @@
             this.middleInitialTextBox = new System.Windows.Forms.TextBox();
             this.firstNameTextBox = new System.Windows.Forms.TextBox();
             this.ssnTextBox = new System.Windows.Forms.TextBox();
+            this.stateComboBox = new System.Windows.Forms.ComboBox();
             this.memberRegistrationLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -128,7 +128,7 @@
             // 
             this.zipCodeLabel.AutoSize = true;
             this.zipCodeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zipCodeLabel.Location = new System.Drawing.Point(3, 208);
+            this.zipCodeLabel.Location = new System.Drawing.Point(3, 209);
             this.zipCodeLabel.Name = "zipCodeLabel";
             this.zipCodeLabel.Size = new System.Drawing.Size(81, 20);
             this.zipCodeLabel.TabIndex = 10;
@@ -171,7 +171,6 @@
             this.memberRegistrationLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.05343F));
             this.memberRegistrationLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 76.94657F));
             this.memberRegistrationLayoutPanel.Controls.Add(this.zipCodeTextBox, 1, 8);
-            this.memberRegistrationLayoutPanel.Controls.Add(this.stateTextBox, 1, 7);
             this.memberRegistrationLayoutPanel.Controls.Add(this.cityTextBox, 1, 6);
             this.memberRegistrationLayoutPanel.Controls.Add(this.streetTextBox, 1, 5);
             this.memberRegistrationLayoutPanel.Controls.Add(this.phoneNumberTextBox, 1, 4);
@@ -188,6 +187,7 @@
             this.memberRegistrationLayoutPanel.Controls.Add(this.lastNameLabel, 0, 3);
             this.memberRegistrationLayoutPanel.Controls.Add(this.phoneNumberLabel, 0, 4);
             this.memberRegistrationLayoutPanel.Controls.Add(this.ssnTextBox, 1, 0);
+            this.memberRegistrationLayoutPanel.Controls.Add(this.stateComboBox, 1, 7);
             this.memberRegistrationLayoutPanel.Location = new System.Drawing.Point(12, 61);
             this.memberRegistrationLayoutPanel.Name = "memberRegistrationLayoutPanel";
             this.memberRegistrationLayoutPanel.RowCount = 9;
@@ -200,22 +200,15 @@
             this.memberRegistrationLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.memberRegistrationLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.memberRegistrationLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.memberRegistrationLayoutPanel.Size = new System.Drawing.Size(577, 234);
+            this.memberRegistrationLayoutPanel.Size = new System.Drawing.Size(577, 235);
             this.memberRegistrationLayoutPanel.TabIndex = 14;
             // 
             // zipCodeTextBox
             // 
-            this.zipCodeTextBox.Location = new System.Drawing.Point(136, 211);
+            this.zipCodeTextBox.Location = new System.Drawing.Point(136, 212);
             this.zipCodeTextBox.Name = "zipCodeTextBox";
             this.zipCodeTextBox.Size = new System.Drawing.Size(183, 20);
             this.zipCodeTextBox.TabIndex = 22;
-            // 
-            // stateTextBox
-            // 
-            this.stateTextBox.Location = new System.Drawing.Point(136, 185);
-            this.stateTextBox.Name = "stateTextBox";
-            this.stateTextBox.Size = new System.Drawing.Size(183, 20);
-            this.stateTextBox.TabIndex = 21;
             // 
             // cityTextBox
             // 
@@ -266,6 +259,65 @@
             this.ssnTextBox.Size = new System.Drawing.Size(183, 20);
             this.ssnTextBox.TabIndex = 14;
             // 
+            // stateComboBox
+            // 
+            this.stateComboBox.FormattingEnabled = true;
+            this.stateComboBox.Items.AddRange(new object[] {
+            "Alabama",
+            "Alaska",
+            "Arizona",
+            "Arkansas",
+            "California",
+            "Colorado",
+            "Connecticut",
+            "Delaware",
+            "Florida",
+            "Georgia",
+            "Hawaii",
+            "Idaho",
+            "Illinois",
+            "Indiana",
+            "Iowa",
+            "Kansas",
+            "Kentucky",
+            "Louisiana",
+            "Maine",
+            "Maryland",
+            "Massachusetts",
+            "Michigan",
+            "Minnesota",
+            "Mississippi",
+            "Missouri",
+            "Montana",
+            "Nebraska",
+            "Nevada",
+            "New Hampshire",
+            "New Jersey",
+            "New Mexico",
+            "New York",
+            "North Carolina",
+            "North Dakota",
+            "Ohio",
+            "Oklahoma",
+            "Oregon",
+            "Pennsylvania",
+            "Rhode Island",
+            "South Carolina",
+            "South Dakota",
+            "Tennessee",
+            "Texas",
+            "Utah",
+            "Vermont",
+            "Virginia",
+            "Washington",
+            "West Virgina",
+            "Wisconsin",
+            "Wyoming"});
+            this.stateComboBox.Location = new System.Drawing.Point(136, 185);
+            this.stateComboBox.Name = "stateComboBox";
+            this.stateComboBox.Size = new System.Drawing.Size(183, 21);
+            this.stateComboBox.TabIndex = 23;
+            // 
             // RegistrationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -300,7 +352,6 @@
         private System.Windows.Forms.Label streetLabel;
         private System.Windows.Forms.TableLayoutPanel memberRegistrationLayoutPanel;
         private System.Windows.Forms.TextBox zipCodeTextBox;
-        private System.Windows.Forms.TextBox stateTextBox;
         private System.Windows.Forms.TextBox cityTextBox;
         private System.Windows.Forms.TextBox streetTextBox;
         private System.Windows.Forms.TextBox phoneNumberTextBox;
@@ -308,5 +359,6 @@
         private System.Windows.Forms.TextBox middleInitialTextBox;
         private System.Windows.Forms.TextBox firstNameTextBox;
         private System.Windows.Forms.TextBox ssnTextBox;
+        private System.Windows.Forms.ComboBox stateComboBox;
     }
 }
