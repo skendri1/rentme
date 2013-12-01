@@ -292,6 +292,13 @@ namespace MePOR
 
         private void rentOrReturnExecuteButton_Click(object sender, EventArgs e)
         {
+
+            if (this.HasErrorText())
+            {
+                this.ShowErrorMessage("There is an error in the selected items");
+                return;
+            }
+
             //If the rental radio button is selected, perform rental
             if (this.rentalRadio.Checked && memberDataGridView.Rows.Count == 1 && selectedItemsDataGridView.Rows.Count > 0)
             {
@@ -387,7 +394,7 @@ namespace MePOR
                 string invalidQty = "Quantity to rent/return is invalid, please choose a number from 1 to " +
                                     availableString;
 
-                MessageBox.Show(invalidQty, "Invalid Number");
+                this.ShowErrorMessage(invalidQty);
 
                 this.selectedItemsDataGridView[e.ColumnIndex, e.RowIndex].ErrorText = "Invalid Qty";
             }
@@ -398,9 +405,31 @@ namespace MePOR
 
         }
 
+        #region ERROR METHODS
+
+        private bool HasErrorText()
+        {
+
+            foreach (DataGridViewRow row in this.selectedItemsDataGridView.Rows )
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.ErrorText.Length > 0)
+                    {
+                        return true;
+                    }
+                }
+                
+            }
+
+            return false;
+        }
+
         private void ShowErrorMessage(string message)
         {
             MessageBox.Show(message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        #endregion ERROR METHODS
     }
 }
