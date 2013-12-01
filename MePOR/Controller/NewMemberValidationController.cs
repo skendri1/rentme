@@ -23,7 +23,7 @@ namespace MePOR.Controller
         /// <returns>True if the name is valid, false otherwise</returns>
         public static bool ValidateName(string name)
         {
-            return Regex.IsMatch(name, @"^[a-zA-Z]+$");
+            return Regex.IsMatch(name, @"^[a-zA-Z\s]+$");
         }
 
         /// <summary>
