@@ -110,6 +110,38 @@ namespace MePOR
                         
         }
 
+        private void ShowRentalConfirm()
+        {
+            DataTable dt = this.GetSelectedItemsDataTable();
+            List<string> itemsString = new List<string>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                string currentRowString = string.Empty;
+
+                currentRowString += "Item Number: " + row["itemnumber"].ToString();
+
+                currentRowString += " Name: " + row["name"].ToString();
+
+                currentRowString += " Category: " + row["category"].ToString();
+
+                currentRowString += " Quantity Rented: " + row["Quantity To Rent"].ToString();
+
+                itemsString.Add(currentRowString);
+            }
+
+
+            string completeString = string.Empty;
+
+            foreach (string item in itemsString)
+            {
+                completeString += item + "\n";
+            }
+
+            MessageBox.Show(completeString + "\n\nDUE IN 7 DAYS", "Confirmation");
+
+        }
+
         #endregion HELPER METHODS     
         
         #region BUTTON LISTENERS
@@ -259,6 +291,8 @@ namespace MePOR
                 DataTable selectedItems = this.GetSelectedItemsDataTable();
 
                 this.dbcontrol.InsertRental(memberid, this.employeeid, selectedItems);
+
+                this.ShowRentalConfirm();
 
                 this.clearGrids();
             }
