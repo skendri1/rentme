@@ -280,11 +280,11 @@ namespace MePOR.DataAccess
 
             using (MySqlCommand cmd = new MySqlCommand(sql))
             {
-                cmd.Parameters.Add("@start", MySql.Data.MySqlClient.MySqlDbType.DateTime);
-                cmd.Parameters.Add("@end", MySql.Data.MySqlClient.MySqlDbType.DateTime);
+                cmd.Parameters.Add("@start", MySql.Data.MySqlClient.MySqlDbType.Date);
+                cmd.Parameters.Add("@end", MySql.Data.MySqlClient.MySqlDbType.Date);
 
-                cmd.Parameters["@start"].Value = startDate.ToString("yyyy-MM-dd HH:mm:ss");
-                cmd.Parameters["@end"].Value = endDate.ToString("yyyy-MM-dd HH:mm:ss");
+                cmd.Parameters["@start"].Value = startDate.Date.ToString("yyyy-MM-dd");
+                cmd.Parameters["@end"].Value = endDate.Date.AddDays(1).ToString("yyyy-MM-dd");
 
                 try
                 {
