@@ -10,8 +10,14 @@ using System.Windows.Forms;
 
 namespace MePOR.View
 {
+    /// <summary>
+    /// Creates a new Form to display and error message.
+    /// </summary>
     public partial class Invalid : Form
     {
+        /// <summary>
+        /// Creates a new Form to display and error message.
+        /// </summary>
         public Invalid()
         {
             InitializeComponent();

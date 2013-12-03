@@ -15,40 +15,22 @@ namespace MePOR.DataAccess
         string connectionSettings = "server=cs.westga.edu; port=3307; uid=cs3230f13m;" +
               "pwd=UttpzH3cY63xhfNS;database=cs3230f13m;";
 
+        /// <summary>
+        /// Creates a default database object that provides access to rent me database.
+        /// </summary>
         public Database()
         {
         }
 
-        public bool CanConnectToServer()
-        {
-            string sql = "SELECT fname FROM EMPLOYEE";
-
-            using (MySqlCommand cmd = new MySqlCommand(sql))
-            {
-
-                try
-                {
-                    cmd.Connection = new MySqlConnection(connectionSettings);
-                    cmd.Connection.Open();
-                    cmd.ExecuteReader();
-
-                    return true;
-                }
-                catch (MySqlException ex)
-                {
-                    HandleSqlException(ex);
-                    return false;
-                }
-                finally
-                {
-                    cmd.Connection.Close();
-                }
-            }
-
-        }
-
         #region QUERY LOGIN
 
+        /// <summary>
+        /// Checks the entered administrator username and password aginst the database.
+        /// </summary>
+        /// <param name="username">administrator username</param>
+        /// <param name="password">administrator password</param>
+        /// <returns>DataTable with the username and password of selected user. Empty DataTable
+        /// if the information is invalid</returns>
         public DataTable QueryAdministratorLogin(string username, string password)
         {
             MySqlDataReader result = null;
@@ -82,6 +64,13 @@ namespace MePOR.DataAccess
             return dt;
         }
 
+        /// <summary>
+        /// Checks the entered employee username and password aginst the database.
+        /// </summary>
+        /// <param name="username">employee username</param>
+        /// <param name="password">employee password</param>
+        /// <returns>DataTable with the username and password of selected user. Empty DataTable
+        /// if the information is invalid</returns>
         public DataTable QueryEmployeeLogin(string username, string password)
         {
             MySqlDataReader result = null;
@@ -115,6 +104,13 @@ namespace MePOR.DataAccess
             return dt;
         }
 
+        /// <summary>
+        /// Gets the employee number of the employee that corresponds to the username and password entered.
+        /// </summary>
+        /// <param name="username">employee username</param>
+        /// <param name="password">employee password</param>
+        /// <returns>DataTable with the employee number of selected user. Empty DataTable
+        /// if the information is invalid</returns>
         public DataTable QueryEmployeeLoginID(string username, string password)
         {
             MySqlDataReader result = null;
@@ -152,6 +148,12 @@ namespace MePOR.DataAccess
 
         #region SEARCH CUSTOMER
 
+        /// <summary>
+        /// Searchs for customers in the database with the specified phone number.
+        /// </summary>
+        /// <param name="phoneNumber">10 digit phone number for a customer in database</param>
+        /// <returns>customer with specified phone number. Empty table if customer does not 
+        /// exist with phone number</returns>
         public DataTable SearchCustomerByPhone(string phoneNumber)
         {
             MySqlDataReader result = null;
@@ -181,7 +183,14 @@ namespace MePOR.DataAccess
             }
             return dt;
         }
-        
+
+        /// <summary>
+        /// Searches for member in database with specified name.
+        /// </summary>
+        /// <param name="fname">first name of member in database</param>
+        /// <param name="lname">last name of memeber in database</param>
+        /// <returns>DataTable of all members with specified first and last name. Empty
+        /// table if member does not exist with the first and last name.</returns>
         public DataTable SearchCustomerByName(string fname, string lname)
         {
             MySqlDataReader result = null;
@@ -217,6 +226,15 @@ namespace MePOR.DataAccess
 
         #endregion SEARCH CUSTOMER
 
+        /// <summary>
+        /// Searches for items in the database.
+        /// </summary>
+        /// <param name="searchCriteria">Criteria such as item category that the item is to be
+        /// searched by.</param>
+        /// <param name="search">Keyword for the value in the database that corresponds to the
+        /// specified criteria</param>
+        /// <returns>DataTable with all of the items with the value for the specified 
+        /// search criteria. Empty datatable is return if item does not exist.</returns>
         public DataTable SearchItem(string searchCriteria, string search)
         {
             MySqlDataReader result = null;
@@ -271,6 +289,12 @@ namespace MePOR.DataAccess
             return dt;
         }
 
+        /// <summary>
+        /// Gets a datatable of all of the rentals between the specified dates.
+        /// </summary>
+        /// <param name="startDate">The startdatetime of the transaction range.</param>
+        /// <param name="endDate">The endatetime of the transaction range.</param>
+        /// <returns></returns>
         public DataTable GetRentalsInDateRange(DateTime startDate, DateTime endDate)
         {
             MySqlDataReader result = null;
@@ -305,6 +329,11 @@ namespace MePOR.DataAccess
             return dt;
         }
 
+        /// <summary>
+        /// Poses a direct query on the database.
+        /// </summary>
+        /// <param name="query">Query to be executed on the database</param>
+        /// <returns>DataTable with the results of the executed query.</returns>
         public DataTable PerformAdvancedQuery(string query)
         {
             MySqlDataReader result = null;
@@ -332,6 +361,18 @@ namespace MePOR.DataAccess
             return dt;
         }
 
+        /// <summary>
+        /// Inserts a member in the database.
+        /// </summary>
+        /// <param name="fName">First name of the new member</param>
+        /// <param name="mInitial">Middle initial of the new member</param>
+        /// <param name="lName">Last name of the new member</param>
+        /// <param name="ssn">Social Security Number of the new member</param>
+        /// <param name="phoneNumber">Phone number of the new member</param>
+        /// <param name="street">Street address of the new member</param>
+        /// <param name="city">City of the new member</param>
+        /// <param name="state">State of the new member</param>
+        /// <param name="zipCode">Zip code where the new member resides</param>
         public void InsertNewMember(string fName, string mInitial, string lName, string ssn, string phoneNumber, string street, string city, string state, string zipCode)
         {
             string sql = "INSERT INTO MEMBER (fname, minitial, lname, ssn, phonenumber, street, city, state, zip) VALUES(@fName,@mInitial,@lName,@ssn,@phoneNumber,@street,@city,@state,@zipCode)";
@@ -380,10 +421,10 @@ namespace MePOR.DataAccess
         #region INSERT RENTAL
 
         /// <summary>
-        /// Returns the rental id of the inserted rental
+        /// Inserts rental in the RENTAL table of the database.
         /// </summary>
-        /// <param name="memberID"></param>
-        /// <param name="employeeID"></param>
+        /// <param name="memberID">memberID the member who rented the item.</param>
+        /// <param name="employeeID">employeeID of the employee who helped the member rent the item.</param>
         /// <returns></returns>
         public int InsertRental(int memberID, int employeeID)
         {
@@ -434,12 +475,17 @@ namespace MePOR.DataAccess
                 {
                     cmd.Connection.Close();
                 }
-                
+
                 return Convert.ToInt32(id);
             }
-        
+
         }
 
+        /// <summary>
+        /// Insert rental information into CONTAINS table in the database.
+        /// </summary>
+        /// <param name="rentalID">ID of the rental transaction</param>
+        /// <param name="selectedItems">Items in the rental transaction</param>
         public void InsertRentalItems(int rentalID, DataTable selectedItems)
         {
 
@@ -451,7 +497,7 @@ namespace MePOR.DataAccess
             {
                 try
                 {
-                
+
                     foreach (DataRow currentRow in selectedItems.Rows)
                     {
                         int itemNumber = Convert.ToInt32(currentRow["itemnumber"].ToString());
@@ -489,8 +535,8 @@ namespace MePOR.DataAccess
 
                     }
 
-      
-                    
+
+
                 }
                 catch (MySqlException ex)
                 {
@@ -507,6 +553,12 @@ namespace MePOR.DataAccess
 
         #region RETURNS
 
+        /// <summary>
+        /// Gets a datatable with the rental ids for rental transaction by a member
+        /// with specified id.
+        /// </summary>
+        /// <param name="memberid">ID of member to get the rental transaction for.</param>
+        /// <returns>DataTable with all of the rentalids by specified member.</returns>
         public DataTable GetRentalIDsOfMember(int memberid)
         {
             MySqlDataReader result = null;
@@ -541,6 +593,11 @@ namespace MePOR.DataAccess
 
         }
 
+        /// <summary>
+        /// Gets all the items rented in specified rentals
+        /// </summary>
+        /// <param name="rentalIds">IDs of the transactions to get the items for.</param>
+        /// <returns>DataTable with all of the items rented in specified rental transactions</returns>
         public DataTable GetItemsAllRented(DataTable rentalIds)
         {
             MySqlDataReader result = null;
@@ -582,13 +639,18 @@ namespace MePOR.DataAccess
                     {
                         cmd.Connection.Close();
                     }
-                    
+
                 }
             }
 
             return dt;
         }
 
+        /// <summary>
+        /// Gets all of the rentals that have yet to be returned.
+        /// </summary>
+        /// <param name="allItemsRented">DataTable of all items rented</param>
+        /// <returns>DataTable containing all of the rentals that have not yet been returned</returns>
         public DataTable GetRentalsNotReturned(DataTable allItemsRented)
         {
             MySqlDataReader result = null;
@@ -619,7 +681,7 @@ namespace MePOR.DataAccess
                         result = cmd.ExecuteReader();
                         dt.Load(result);
                         cmd.Parameters.Clear();
-                        
+
 
                         int totalReturned = 0;
                         string totalReturnedString = dt.Rows[0].ItemArray[0].ToString();
@@ -633,12 +695,12 @@ namespace MePOR.DataAccess
                         {
                             currentRow["quantityrented"] = qtyRented - totalReturned;
                         }
-                        else if ( totalReturned == qtyRented)
+                        else if (totalReturned == qtyRented)
                         {
                             int index = allItemsRented.Rows.IndexOf(currentRow);
                             rowsToRemove.Add(index);
                         }
-                        
+
                         dt.Clear();
                         dt = new DataTable();
 
@@ -669,6 +731,12 @@ namespace MePOR.DataAccess
             return allItemsRented;
         }
 
+        /// <summary>
+        /// Inserts a return into RETURNTRANSACTION table in database.
+        /// </summary>
+        /// <param name="employeeId">ID of the employee returning the items.</param>
+        /// <param name="returningItems">Items that are being returned</param>
+        /// <returns>decimal indicating the cost of the items returned.</returns>
         public decimal ReturnItems(int employeeId, DataTable returningItems)
         {
             string sql = "INSERT INTO RETURNTRANSACTION (returnemployeenum, containsid, returndatetime, fee, quantityreturned) " +
@@ -698,14 +766,14 @@ namespace MePOR.DataAccess
                             daysSinceRental = 1;
                         }
 
-                        decimal fee = (Convert.ToDecimal(row["dailyrate"].ToString())*
-                                      Convert.ToInt32(row["Quantity To Return"]) ) * daysSinceRental ;
+                        decimal fee = (Convert.ToDecimal(row["dailyrate"].ToString()) *
+                                      Convert.ToInt32(row["Quantity To Return"])) * daysSinceRental;
 
                         totalFee += fee;
 
                         cmd.Parameters["@fee"].Value = fee;
                         cmd.Parameters["@quantityreturned"].Value = Convert.ToInt32(row["Quantity To Return"]);
-                        
+
                         cmd.Connection = new MySqlConnection(connectionSettings);
                         cmd.Connection.Open();
                         cmd.ExecuteNonQuery();
@@ -731,7 +799,7 @@ namespace MePOR.DataAccess
 
                     }
 
-                    
+
                 }
                 catch (MySqlException ex)
                 {
@@ -759,6 +827,37 @@ namespace MePOR.DataAccess
                 default:
                     ShowErrorMessage(ex.Message);
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Pose test query to test access to the database.
+        /// </summary>
+        /// <returns>boolean value indicating connection to the database.</returns>
+        public bool CanConnectToServer()
+        {
+            string sql = "SELECT fname FROM EMPLOYEE";
+
+            using (MySqlCommand cmd = new MySqlCommand(sql))
+            {
+
+                try
+                {
+                    cmd.Connection = new MySqlConnection(connectionSettings);
+                    cmd.Connection.Open();
+                    cmd.ExecuteReader();
+
+                    return true;
+                }
+                catch (MySqlException ex)
+                {
+                    HandleSqlException(ex);
+                    return false;
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
             }
         }
 

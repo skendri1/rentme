@@ -7,12 +7,18 @@ using MePOR.Controller;
 
 namespace MePOR
 {
+    /// <summary>
+    /// Creates new Form that provides login interface.
+    /// </summary>
     public partial class Login : Form
     {
         private string _username;
         private string _password;
         private DBAccessController dbControl;
 
+        /// <summary>
+        /// Creates new Form that provides login interface.
+        /// </summary>
         public Login()
         {
             InitializeComponent();

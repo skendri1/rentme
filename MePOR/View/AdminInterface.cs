@@ -11,10 +11,16 @@ using System.Windows.Forms;
 
 namespace MePOR.View
 {
+    /// <summary>
+    /// Creates a new form to provide an interface to administrator functions.
+    /// </summary>
     public partial class AdminInterface : Form
     {
         DBAccessController dbcontrol;
 
+        /// <summary>
+        /// Creates a new form to provide an interface to administrator functions.
+        /// </summary>
         public AdminInterface()
         {
             InitializeComponent();

@@ -34,6 +34,11 @@ namespace MePOR
         
         DBAccessController dbcontrol;
 
+        /// <summary>
+        /// Creates GUI for employee interface.
+        /// </summary>
+        /// <param name="userType">Usertype of the employee</param>
+        /// <param name="employeeid">Employee ID number</param>
         public MePOR(UserType userType, int employeeid)
         {
             InitializeComponent();

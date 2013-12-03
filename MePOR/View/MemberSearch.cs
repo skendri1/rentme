@@ -13,11 +13,17 @@ using System.Windows.Forms;
 
 namespace MePOR.View
 {
+    /// <summary>
+    /// Creates a new Form that provides ability to search for members.
+    /// </summary>
     public partial class MemberSearch : Form
     {
         DBAccessController dbControl;
         public DataTable result;
 
+        /// <summary>
+        /// Creates a new Form that provides ability to search for members.
+        /// </summary>
         public MemberSearch()
         {
             InitializeComponent();
